@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sandigi.mobile"
+    namespace = "com.example.san_digi"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
