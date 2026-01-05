@@ -62,13 +62,10 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    return Scaffold(
-      backgroundColor: isDark ? backgroundColorDark : backgroundColorLight,
-      body: Column(
+    return Container(
+      color: isDark ? backgroundColorDark : backgroundColorLight,
+      child: Column(
         children: [
-          // AppBar personnalisée
-          _buildAppBar(isDark),
-          
           // Contenu principal avec défilement
           Expanded(
             child: SingleChildScrollView(
@@ -94,112 +91,6 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
                   const SizedBox(height: 32),
                 ],
               ),
-            ),
-          ),
-        ],
-      ),
-      // Bouton flottant d'ajout
-      floatingActionButton: _buildFloatingActionButton(),
-    );
-  }
-
-  // AppBar personnalisée
-  Widget _buildAppBar(bool isDark) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
-      decoration: BoxDecoration(
-        color: isDark ? backgroundColorDark : backgroundColorLight,
-        border: Border(
-          bottom: BorderSide(
-            color: isDark 
-                ? const Color(0xFF374151) 
-                : const Color(0xFFE5E7EB),
-          ),
-        ),
-      ),
-      child: Row(
-        children: [
-          // Bouton menu
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isDark 
-                  ? const Color(0xFF1F2937) 
-                  : const Color(0xFFF3F4F6),
-            ),
-            child: IconButton(
-              onPressed: () {
-                // Action menu
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Menu - Fonctionnalité à venir'),
-                    duration: Duration(seconds: 1),
-                  ),
-                );
-              },
-              icon: Icon(
-                Icons.menu_rounded,
-                color: isDark ? Colors.white : const Color(0xFF374151),
-                size: 24,
-              ),
-            ),
-          ),
-          const Spacer(),
-          // Titre
-          Text(
-            'Mes Médicaments',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-              color: isDark ? Colors.white : const Color(0xFF111827),
-              letterSpacing: -0.5,
-            ),
-          ),
-          const Spacer(),
-          // Bouton notifications
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isDark 
-                  ? const Color(0xFF1F2937) 
-                  : const Color(0xFFF3F4F6),
-            ),
-            child: Stack(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    // Action notifications
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Notifications - Fonctionnalité à venir'),
-                        duration: Duration(seconds: 1),
-                      ),
-                    );
-                  },
-                  icon: Icon(
-                    Icons.notifications_outlined,
-                    color: isDark ? Colors.white : const Color(0xFF374151),
-                    size: 24,
-                  ),
-                ),
-                // Badge de notification
-                Positioned(
-                  right: 10,
-                  top: 10,
-                  child: Container(
-                    width: 8,
-                    height: 8,
-                    decoration: const BoxDecoration(
-                      color: dangerColor,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-              ],
             ),
           ),
         ],
@@ -347,7 +238,7 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
                     child: ElevatedButton.icon(
                       onPressed: () {
                         if (isTaken) {
-                          _showAlreadyTakenDialog();
+                          _showAlreadyTakenDialog(context);
                         } else {
                           _markAsTaken(dose['id']);
                         }
@@ -629,42 +520,6 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
     );
   }
 
-  // Bouton flottant d'ajout
-  Widget _buildFloatingActionButton() {
-    return Container(
-      width: 64,
-      height: 64,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: const LinearGradient(
-          colors: [primaryColor, Color(0xFF2A7DE1)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: primaryColor.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(32),
-        child: InkWell(
-          onTap: () => _addNewMedication(),
-          borderRadius: BorderRadius.circular(32),
-          child: const Icon(
-            Icons.add_rounded,
-            color: Colors.white,
-            size: 32,
-          ),
-        ),
-      ),
-    );
-  }
-
   // ==============================================
   // ACTIONS ET DIALOGUES
   // ==============================================
@@ -691,7 +546,7 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
     );
   }
 
-  void _showAlreadyTakenDialog() {
+  void _showAlreadyTakenDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -727,7 +582,7 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
     );
   }
 
-  void _addNewMedication() {
+  void _addNewMedication(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
