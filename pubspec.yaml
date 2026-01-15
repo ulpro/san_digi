@@ -50,6 +50,9 @@ dev_dependencies:
   #for splash screen
   flutter_native_splash: ^2.3.6
 
+  #launcher icon
+  flutter_launcher_icons: ^0.14.4
+
 flutter_native_splash:
     color: "#F3F6F9"   # ta couleur de fond (0xFF2A7DE1)
     image: assets/images/splash.jpg
@@ -66,7 +69,11 @@ flutter_native_splash:
       color: "#F3F6F9"
       image: assets/images/splash.jpg
       icon_background_color: "#F3F6F9"
-    
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo/logo-sandigi-mobile.png"   
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -82,7 +89,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/logo/logo-sandigi-mobile.png
-    - assets/images/splash.png
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
