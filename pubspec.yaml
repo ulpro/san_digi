@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.10.4
+  sdk: ^3.9.0
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -46,6 +46,35 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
 
+
+  #for splash screen
+  flutter_native_splash: ^2.3.6
+
+  #launcher icon
+  flutter_launcher_icons: ^0.14.4
+
+flutter_native_splash:
+    color: "#F3F6F9"   # ta couleur de fond (0xFF2A7DE1)
+    image: assets/images/splash.jpg
+    icon_background_color: "#F3F6F9"
+
+    android: true
+    ios: true
+    web: false
+
+    android_gravity: center
+    ios_content_mode: center
+
+    android_12:
+      color: "#F3F6F9"
+      image: assets/images/splash.jpg
+      icon_background_color: "#F3F6F9"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo/logo-sandigi-mobile.png"   
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -58,8 +87,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/logo/logo-sandigi-mobile.png
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

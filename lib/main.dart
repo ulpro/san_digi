@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:san_digi/splash_screen.dart';
 import 'navigation.dart'; // Importation du système de navigation
 
 // ==============================================
@@ -179,8 +180,7 @@ class SanDigiApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home:
-          const MainNavigation(), // ← MODIFICATION ICI : Utilisation du système de navigation
+      home:  const MainNavigation(), // ← MODIFICATION ICI : Utilisation du système de navigation
     );
   }
 }
