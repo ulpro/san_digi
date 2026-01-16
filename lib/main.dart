@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:san_digi/splash_screen.dart';
-import 'navigation.dart'; // Importation du système de navigation
+import 'shared/navigation.dart'; // Importation du système de navigation
 
 // ==============================================
 // PROFESSIONAL HEALTHCARE COLOR PALETTE

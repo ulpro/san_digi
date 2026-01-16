@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import '../../prescription/constants.dart';
+import '../../prescription/models.dart';
+import 'medication_card.dart';
+
+class MedicationsSection extends StatelessWidget {
+  final List<MedicationDetail> medications;
+  final bool isDark;
+
+  const MedicationsSection({
+    super.key,
+    required this.medications,
+    required this.isDark,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Médicaments prescrits',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: isDark 
+                    ? PrescriptionColors.textPrimaryLight 
+                    : PrescriptionColors.textPrimaryDark,
+              ),
+            ),
+            Text(
+              '${medications.length} médicament(s)',
+              style: TextStyle(
+                fontSize: 12,
+                color: isDark 
+                    ? PrescriptionColors.textSecondaryLight 
+                    : PrescriptionColors.textSecondaryDark,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        ...medications.asMap().entries.map((entry) {
+          final index = entry.key;
+          final medication = entry.value;
+          return MedicationCard(
+            medication: medication,
+            index: index,
+            isDark: isDark,
+          );
+        }),
+      ],
+    );
+  }
+}

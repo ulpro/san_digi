@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
-import 'ordonnance.dart';
-import 'treatment.dart';
-import 'profile_screen.dart';
-import 'rdv_screen.dart'; // ← AJOUTER CET IMPORT POUR LE RDV
+import '../home/home_screen.dart';
+import '../prescription/prescription_screen.dart';
+import '../treatment/treatment_screen.dart';
+import '../profile/profile_screen.dart';
+import '../rendezvous/rendezvous_screen.dart'; // ← AJOUTER CET IMPORT POUR LE RDV
 
 // ==============================================
 // IMPORTATION DES COULEURS
@@ -56,26 +56,34 @@ class _MainNavigationState extends State<MainNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    // Ne pas afficher l'AppBar pour l'écran Profil (index 4)
+    final bool showAppBar = _currentIndex != 4;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          _screenTitles[_currentIndex],
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
-            fontSize: 22,
-            fontWeight: FontWeight.w700,
-            letterSpacing: -0.5,
-          ),
-        ),
-        // Actions spécifiques à chaque écran
-        actions: _buildAppBarActions(context),
-      ),
+      appBar: showAppBar ? _buildMainAppBar(context) : null,
       body: _screens[_currentIndex],
       bottomNavigationBar: _buildBottomNavigationBar(context),
+    );
+  }
+
+  // Méthode séparée pour construire l'AppBar principale
+  AppBar _buildMainAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      elevation: 0,
+      centerTitle: true,
+      title: Text(
+        _screenTitles[_currentIndex],
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSurface,
+          fontSize: 22,
+          fontWeight: FontWeight.w700,
+          letterSpacing: -0.5,
+        ),
+      ),
+      // Actions spécifiques à chaque écran
+      actions: _buildAppBarActions(context),
     );
   }
 
@@ -462,86 +470,89 @@ class _MainNavigationState extends State<MainNavigation> {
     );
   }
 
-  // Dialogue de notifications
+  // Dialogue de notifications - CORRIGÉ
   void _showNotifications(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true, // ← AJOUTÉ POUR PERMETTRE LE SCROLL
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       builder: (context) {
-        return Container(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Notifications',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 20),
+        return SingleChildScrollView( // ← DÉPLACÉ ICI
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Notifications',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+                ),
+                const SizedBox(height: 20),
 
-              // Liste des notifications
-              _buildNotificationItem(
-                'Rappel de prise',
-                'Prenez votre Metformine dans 30 minutes',
-                Icons.medication,
-                true,
-              ),
-              const SizedBox(height: 12),
-              _buildNotificationItem(
-                'Ordonnance à renouveler',
-                'Votre ordonnance pour Amoxicilline expire dans 3 jours',
-                Icons.warning_amber,
-                false,
-              ),
-              const SizedBox(height: 12),
-              _buildNotificationItem(
-                'Rendez-vous confirmé',
-                'Votre consultation avec Dr. Martin est confirmée pour demain',
-                Icons.calendar_today,
-                true,
-              ),
-              const SizedBox(height: 12),
-              _buildNotificationItem(
-                'Nouveau rendez-vous disponible',
-                'Le Dr. Dupont a un créneau disponible demain',
-                Icons.event_available,
-                false,
-              ),
-              const SizedBox(height: 24),
+                // Liste des notifications
+                _buildNotificationItem(
+                  'Rappel de prise',
+                  'Prenez votre Metformine dans 30 minutes',
+                  Icons.medication,
+                  true,
+                ),
+                const SizedBox(height: 12),
+                _buildNotificationItem(
+                  'Ordonnance à renouveler',
+                  'Votre ordonnance pour Amoxicilline expire dans 3 jours',
+                  Icons.warning_amber,
+                  false,
+                ),
+                const SizedBox(height: 12),
+                _buildNotificationItem(
+                  'Rendez-vous confirmé',
+                  'Votre consultation avec Dr. Martin est confirmée pour demain',
+                  Icons.calendar_today,
+                  true,
+                ),
+                const SizedBox(height: 12),
+                _buildNotificationItem(
+                  'Nouveau rendez-vous disponible',
+                  'Le Dr. Dupont a un créneau disponible demain',
+                  Icons.event_available,
+                  false,
+                ),
+                const SizedBox(height: 24),
 
-              // Bouton pour tout marquer comme lu
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Toutes les notifications ont été marquées comme lues',
+                // Bouton pour tout marquer comme lu
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Toutes les notifications ont été marquées comme lues',
+                          ),
+                          duration: Duration(seconds: 2),
                         ),
-                        duration: Duration(seconds: 2),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryBlue,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryBlue,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Text(
+                      'Tout marquer comme lu',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
                   ),
-                  child: const Text(
-                    'Tout marquer comme lu',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
