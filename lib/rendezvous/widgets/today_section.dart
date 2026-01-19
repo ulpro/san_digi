@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/appointment_model.dart';
 import 'appointment_card.dart';
 
 class TodaySection extends StatelessWidget {
@@ -34,20 +34,22 @@ class TodaySection extends StatelessWidget {
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w800,
-            color: isDark 
-                ? RendezVousColors.textPrimaryLight 
+            color: isDark
+                ? RendezVousColors.textPrimaryLight
                 : RendezVousColors.textPrimaryDark,
             letterSpacing: -0.5,
           ),
         ),
         const SizedBox(height: RendezVousConstants.mediumPadding),
-        ...todayAppointments.map((apt) => AppointmentCard(
-              appointment: apt,
-              isToday: apt.isToday,
-              onShowDetails: () => onShowDetails(apt),
-              onActionPressed: () => onActionPressed(apt),
-              onShowMedicalReport: () => onShowMedicalReport(apt),
-            )),
+        ...todayAppointments.map(
+          (apt) => AppointmentCard(
+            appointment: apt,
+            isToday: apt.isToday,
+            onShowDetails: () => onShowDetails(apt),
+            onActionPressed: () => onActionPressed(apt),
+            onShowMedicalReport: () => onShowMedicalReport(apt),
+          ),
+        ),
       ],
     );
   }

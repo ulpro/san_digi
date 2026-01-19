@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_colors.dart';
+
 class ProfileColors {
-  static const Color primaryColor = Color(0xFF007BFF);
-  static const Color primaryGradientEnd = Color(0xFF2A7DE1);
-  static const Color backgroundColorLight = Color(0xFFF8F9FA);
-  static const Color backgroundColorDark = Color(0xFF111521);
-  static const Color alertColor = Color(0xFFDC3545);
-  static const Color successColor = Color(0xFF28A745);
-  static const Color warningColor = Color(0xFFFF6B6B);
-  static const Color textMainColor = Color(0xFF212529);
-  static const Color textSecondaryColor = Color(0xFF6C757D);
-  static const Color callButtonColor = Color(0xFF20C997);
-  
-  static const Color cardDark = Color(0xFF1F2937);
-  static const Color borderDark = Color(0xFF374151);
-  static const Color borderLight = Color(0xFFE5E7EB);
-  static const Color textLight = Colors.white;
-  static const Color textSecondaryDark = Color(0xFF9CA3AF);
+  static const Color primaryColor = AppColors.primaryBlue;
+  static const Color primaryGradientEnd = AppColors.gradientEnd;
+  static const Color backgroundColorLight = AppColors.backgroundGray;
+  static const Color backgroundColorDark = AppColors.darkBackground;
+  static const Color alertColor = AppColors.alertRed;
+  static const Color successColor = AppColors.successGreen;
+  static const Color warningColor = AppColors.warningOrange;
+  static const Color textMainColor = AppColors.darkText;
+  static const Color textSecondaryColor = AppColors.mediumText;
+  static const Color callButtonColor = AppColors.tealHealth;
+
+  static const Color cardDark = AppColors.darkCard;
+  static const Color borderDark = AppColors.borderDark;
+  static const Color borderLight = AppColors.borderLight;
+  static const Color textLight = AppColors.white;
+  static const Color textSecondaryDark = AppColors.lightText;
 }
 
 class ProfileConstants {

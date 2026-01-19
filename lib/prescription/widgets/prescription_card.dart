@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/prescription_model.dart';
 
 class PrescriptionCard extends StatelessWidget {
   final Prescription prescription;
@@ -55,11 +55,11 @@ class PrescriptionCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(PrescriptionConstants.cardBorderRadius),
+        borderRadius: BorderRadius.circular(
+          PrescriptionConstants.cardBorderRadius,
+        ),
         border: Border.all(
-          color: isDark 
-              ? Colors.white.withOpacity(0.1) 
-              : Colors.grey.shade200,
+          color: isDark ? Colors.white.withOpacity(0.1) : Colors.grey.shade200,
         ),
         boxShadow: [
           BoxShadow(

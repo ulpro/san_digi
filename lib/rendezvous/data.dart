@@ -1,4 +1,4 @@
-import 'models.dart';
+import '../models/appointment_model.dart';
 
 class RendezVousData {
   static final List<Appointment> appointments = [
@@ -96,7 +96,9 @@ class RendezVousData {
     switch (filterIndex) {
       case 0: // À venir
         return appointments
-            .where((apt) => apt.status == 'confirmed' || apt.status == 'pending')
+            .where(
+              (apt) => apt.status == 'confirmed' || apt.status == 'pending',
+            )
             .toList();
       case 1: // Passés
         return appointments.where((apt) => apt.status == 'completed').toList();
@@ -112,7 +114,8 @@ class RendezVousData {
       appointmentId: appointmentId,
       doctor: 'Dr. Sophie Martin',
       date: '15 Juin 2024',
-      content: 'Consultation avec le Dr. Martin s\'est bien déroulée. '
+      content:
+          'Consultation avec le Dr. Martin s\'est bien déroulée. '
           'Tension artérielle stable à 12/8. Aucun symptôme alarmant détecté.',
       recommendations: 'Prochain contrôle dans 6 mois.',
     );

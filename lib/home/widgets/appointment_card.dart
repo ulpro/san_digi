@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/appointment_model.dart';
 
 class AppointmentCard extends StatefulWidget {
   final Appointment appointment;
 
-  const AppointmentCard({
-    super.key,
-    required this.appointment,
-  });
+  const AppointmentCard({super.key, required this.appointment});
 
   @override
   State<AppointmentCard> createState() => _AppointmentCardState();

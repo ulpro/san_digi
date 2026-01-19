@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/prescription_model.dart';
 
 class PrescriptionCard extends StatelessWidget {
   final Prescription prescription;
 
-  const PrescriptionCard({
-    super.key,
-    required this.prescription,
-  });
+  const PrescriptionCard({super.key, required this.prescription});
 
   @override
   Widget build(BuildContext context) {
@@ -116,8 +113,11 @@ class PrescriptionCard extends StatelessWidget {
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.repeat,
-                                size: 12, color: AppColors.lightText),
+                            Icon(
+                              Icons.repeat,
+                              size: 12,
+                              color: AppColors.lightText,
+                            ),
                             const SizedBox(width: 4),
                             Text(
                               '${prescription.remainingRefills} renouv.',
@@ -140,13 +140,17 @@ class PrescriptionCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColors.warningOrange.withOpacity(0.05),
                 borderRadius: BorderRadius.circular(8),
-                border:
-                    Border.all(color: AppColors.warningOrange.withOpacity(0.1)),
+                border: Border.all(
+                  color: AppColors.warningOrange.withOpacity(0.1),
+                ),
               ),
               child: Row(
                 children: [
-                  Icon(Icons.warning_amber,
-                      color: AppColors.warningOrange, size: 16),
+                  Icon(
+                    Icons.warning_amber,
+                    color: AppColors.warningOrange,
+                    size: 16,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(

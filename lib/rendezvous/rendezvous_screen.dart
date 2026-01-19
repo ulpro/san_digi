@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'data.dart';
 import 'constants.dart';
-import 'models.dart';
+import '../models/appointment_model.dart';
 import 'widgets/today_section.dart';
 import 'widgets/filter_section.dart';
 import 'widgets/appointment_card.dart';
@@ -42,9 +42,7 @@ class _RendezVousScreenState extends State<RendezVousScreen> {
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(24),
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       builder: (context) {
         return DetailSheet(
@@ -89,7 +87,9 @@ class _RendezVousScreenState extends State<RendezVousScreen> {
       builder: (context) => ConfirmDialog(
         onConfirm: () {
           setState(() {
-            final index = _appointments.indexWhere((apt) => apt.id == appointment.id);
+            final index = _appointments.indexWhere(
+              (apt) => apt.id == appointment.id,
+            );
             if (index != -1) {
               _appointments[index] = Appointment(
                 id: appointment.id,
@@ -123,7 +123,9 @@ class _RendezVousScreenState extends State<RendezVousScreen> {
       builder: (context) => CancelDialog(
         onConfirm: () {
           setState(() {
-            final index = _appointments.indexWhere((apt) => apt.id == appointment.id);
+            final index = _appointments.indexWhere(
+              (apt) => apt.id == appointment.id,
+            );
             if (index != -1) {
               _appointments[index] = Appointment(
                 id: appointment.id,
@@ -164,9 +166,7 @@ class _RendezVousScreenState extends State<RendezVousScreen> {
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(24),
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       builder: (context) => const NewAppointmentSheet(),
     );
@@ -191,12 +191,14 @@ class _RendezVousScreenState extends State<RendezVousScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final todayAppointments = _appointments.where((apt) => apt.isToday).toList();
+    final todayAppointments = _appointments
+        .where((apt) => apt.isToday)
+        .toList();
     final filteredAppointments = _getFilteredAppointments();
 
     return Scaffold(
-      backgroundColor: isDark 
-          ? RendezVousColors.bgDark 
+      backgroundColor: isDark
+          ? RendezVousColors.bgDark
           : RendezVousColors.bgLight,
       body: Column(
         children: [
@@ -228,13 +230,19 @@ class _RendezVousScreenState extends State<RendezVousScreen> {
                   // Liste des rendez-vous
                   if (filteredAppointments.isNotEmpty)
                     Column(
-                      children: filteredAppointments.map((apt) => AppointmentCard(
-                            appointment: apt,
-                            isToday: apt.isToday,
-                            onShowDetails: () => _showAppointmentDetails(apt),
-                            onActionPressed: () => _handleAppointmentAction(apt),
-                            onShowMedicalReport: () => _showMedicalReport(apt),
-                          )).toList(),
+                      children: filteredAppointments
+                          .map(
+                            (apt) => AppointmentCard(
+                              appointment: apt,
+                              isToday: apt.isToday,
+                              onShowDetails: () => _showAppointmentDetails(apt),
+                              onActionPressed: () =>
+                                  _handleAppointmentAction(apt),
+                              onShowMedicalReport: () =>
+                                  _showMedicalReport(apt),
+                            ),
+                          )
+                          .toList(),
                     )
                   else
                     EmptyState(selectedFilterIndex: _selectedFilterIndex),

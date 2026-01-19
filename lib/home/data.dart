@@ -1,4 +1,9 @@
-import 'models.dart';
+import '../models/treatment_model.dart';
+import '../models/appointment_model.dart';
+import '../models/prescription_model.dart'; // for Prescription
+import '../models/health_model.dart';
+import '../models/activity_model.dart';
+import '../models/ui_models.dart';
 import 'constants.dart';
 import 'package:flutter/material.dart';
 
@@ -41,40 +46,60 @@ class HomeData {
 
   static final List<Prescription> prescriptions = [
     Prescription(
+      id: '1',
       title: 'Ordonnance cardiologie',
       doctor: 'Dr. Martin',
       date: '05/06/2024',
       status: 'active',
       remainingRefills: 2,
       expiryDate: '05/09/2024',
+      medications: ['Metformine', 'Lisinopril'],
+      doctorFullName: 'Dr. Martin',
+      hospital: 'Hôpital Saint-Louis',
+      medicationDetails: [],
+      instructions: 'Prendre les médicaments comme indiqué.',
     ),
     Prescription(
+      id: '2',
       title: 'Ordonnance diabétologie',
       doctor: 'Dr. Dubois',
       date: '12/03/2024',
       status: 'expiring',
       remainingRefills: 0,
       expiryDate: '12/06/2024',
+      medications: ['Insuline'],
+      doctorFullName: 'Dr. Dubois',
+      hospital: 'Clinique des Lilas',
+      medicationDetails: [],
+      instructions: 'Surveiller la glycémie.',
     ),
     Prescription(
+      id: '3',
       title: 'Ordonnance généraliste',
       doctor: 'Dr. Leroy',
       date: '20/05/2024',
       status: 'active',
       remainingRefills: 1,
       expiryDate: '20/08/2024',
+      medications: ['Doliprane'],
+      doctorFullName: 'Dr. Leroy',
+      hospital: 'Cabinet Médical',
+      medicationDetails: [],
+      instructions: 'En cas de douleur.',
     ),
   ];
 
   static final Appointment nextAppointment = Appointment(
+    id: '1',
     doctor: 'Dr. Sophie Martin',
     specialty: 'Cardiologue',
     date: 'Lun 15 Juin 2024',
     time: '10:00 - 10:30',
     address: '123 Rue de la Santé, 75015 Paris',
     type: 'Consultation de suivi',
-    isConfirmed: true,
+    status: 'confirmed',
     duration: '30 min',
+    isToday: false,
   );
 
   static final List<HealthIndicator> healthIndicators = [
@@ -173,6 +198,5 @@ class HomeData {
     ];
   }
 
-  static bool get needsRenewal =>
-      medications.any((m) => m.status == 'warning');
+  static bool get needsRenewal => medications.any((m) => m.status == 'warning');
 }

@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/treatment_model.dart';
 
 class DoseCard extends StatefulWidget {
   final Dose dose;
   final Function(String) onMarkAsTaken;
 
-  const DoseCard({
-    super.key,
-    required this.dose,
-    required this.onMarkAsTaken,
-  });
+  const DoseCard({super.key, required this.dose, required this.onMarkAsTaken});
 
   @override
   State<DoseCard> createState() => _DoseCardState();
@@ -32,27 +28,18 @@ class _DoseCardState extends State<DoseCard> {
         return AlertDialog(
           title: const Text(
             'Déjà pris',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
           ),
           content: const Text(
             'Ce médicament a déjà été marqué comme pris pour aujourd\'hui.',
-            style: TextStyle(
-              fontSize: 14,
-              color: Color(0xFF6B7280),
-            ),
+            style: TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text(
                 'OK',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
               ),
             ),
           ],
@@ -72,14 +59,15 @@ class _DoseCardState extends State<DoseCard> {
         color: isDark
             ? TreatmentColors.cardBgDark
             : TreatmentColors.backgroundColorLight,
-        borderRadius:
-            BorderRadius.circular(TreatmentConstants.cardBorderRadius),
+        borderRadius: BorderRadius.circular(
+          TreatmentConstants.cardBorderRadius,
+        ),
         border: Border.all(
           color: widget.dose.isPending
               ? TreatmentColors.warningColor.withOpacity(0.3)
               : (isDark
-                  ? TreatmentColors.borderColorDark.withOpacity(0.3)
-                  : TreatmentColors.borderColorLight),
+                    ? TreatmentColors.borderColorDark.withOpacity(0.3)
+                    : TreatmentColors.borderColorLight),
         ),
         boxShadow: [
           BoxShadow(
@@ -99,8 +87,9 @@ class _DoseCardState extends State<DoseCard> {
               height: TreatmentConstants.doseCardHeight,
               decoration: BoxDecoration(
                 color: TreatmentColors.primaryColor.withOpacity(0.1),
-                borderRadius:
-                    BorderRadius.circular(TreatmentConstants.smallCardBorderRadius),
+                borderRadius: BorderRadius.circular(
+                  TreatmentConstants.smallCardBorderRadius,
+                ),
               ),
               child: Icon(
                 widget.dose.icon,
@@ -122,8 +111,8 @@ class _DoseCardState extends State<DoseCard> {
                       color: widget.dose.isPending
                           ? TreatmentColors.warningColor
                           : (isDark
-                              ? TreatmentColors.textSecondaryLight
-                              : TreatmentColors.textSecondaryDark),
+                                ? TreatmentColors.textSecondaryLight
+                                : TreatmentColors.textSecondaryDark),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -161,7 +150,8 @@ class _DoseCardState extends State<DoseCard> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              TreatmentConstants.buttonBorderRadius),
+                            TreatmentConstants.buttonBorderRadius,
+                          ),
                         ),
                         elevation: 0,
                       ),
@@ -172,7 +162,9 @@ class _DoseCardState extends State<DoseCard> {
                         size: 20,
                       ),
                       label: Text(
-                        widget.dose.isTaken ? 'Déjà pris' : 'Prendre maintenant',
+                        widget.dose.isTaken
+                            ? 'Déjà pris'
+                            : 'Prendre maintenant',
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,

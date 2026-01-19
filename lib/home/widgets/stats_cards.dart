@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/ui_models.dart';
 
 class StatsCards extends StatelessWidget {
   final List<StatCard> stats;
   final double screenWidth;
 
-  const StatsCards({
-    super.key,
-    required this.stats,
-    required this.screenWidth,
-  });
+  const StatsCards({super.key, required this.stats, required this.screenWidth});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +26,7 @@ class StatsCards extends StatelessWidget {
       children: stats.map((stat) {
         return Expanded(
           child: Padding(
-            padding: EdgeInsets.only(
-                right: stat == stats.last ? 0 : 12),
+            padding: EdgeInsets.only(right: stat == stats.last ? 0 : 12),
             child: _buildStatCard(stat, theme),
           ),
         );
@@ -39,12 +34,13 @@ class StatsCards extends StatelessWidget {
     );
   }
 
-  Widget _buildStatCard(StatCard stat, ThemeData theme,
-      {bool isCompact = false}) {
+  Widget _buildStatCard(
+    StatCard stat,
+    ThemeData theme, {
+    bool isCompact = false,
+  }) {
     return Container(
-      padding: isCompact
-          ? const EdgeInsets.all(12)
-          : const EdgeInsets.all(16),
+      padding: isCompact ? const EdgeInsets.all(12) : const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(AppConstants.cardBorderRadius),
@@ -68,8 +64,11 @@ class StatsCards extends StatelessWidget {
                   color: stat.color.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(stat.icon,
-                    color: stat.color, size: isCompact ? 16 : 20),
+                child: Icon(
+                  stat.icon,
+                  color: stat.color,
+                  size: isCompact ? 16 : 20,
+                ),
               ),
               const Spacer(),
               SizedBox(

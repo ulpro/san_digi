@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/treatment_model.dart';
 import 'treatment_card.dart';
 
 class TreatmentHistorySection extends StatelessWidget {
   final List<Treatment> treatments;
 
-  const TreatmentHistorySection({
-    super.key,
-    required this.treatments,
-  });
+  const TreatmentHistorySection({super.key, required this.treatments});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +30,9 @@ class TreatmentHistorySection extends StatelessWidget {
         const SizedBox(height: TreatmentConstants.mediumPadding),
         ...treatments.map((treatment) {
           return Padding(
-            padding: const EdgeInsets.only(bottom: TreatmentConstants.smallPadding),
+            padding: const EdgeInsets.only(
+              bottom: TreatmentConstants.smallPadding,
+            ),
             child: TreatmentCard(treatment: treatment),
           );
         }).toList(),

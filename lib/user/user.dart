@@ -2,7 +2,7 @@
 // Point d'accès central pour le module user
 
 // Auth module
-export 'auth/models/user.dart';
+export '../models/user_model.dart';
 export 'auth/services/auth_service.dart';
 export 'auth/utils/validation.dart';
 export 'auth/screens/welcome_screen.dart';

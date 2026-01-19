@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../prescription/constants.dart';
-import '../../prescription/models.dart';
+import '../../models/prescription_model.dart';
 import 'medication_card.dart';
 
 class MedicationsSection extends StatelessWidget {
@@ -21,22 +21,26 @@ class MedicationsSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Médicaments prescrits',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: isDark 
-                    ? PrescriptionColors.textPrimaryLight 
-                    : PrescriptionColors.textPrimaryDark,
+            Flexible(
+              child: Text(
+                'Médicaments prescrits',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: isDark
+                      ? PrescriptionColors.textPrimaryLight
+                      : PrescriptionColors.textPrimaryDark,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
+            const SizedBox(width: 8),
             Text(
               '${medications.length} médicament(s)',
               style: TextStyle(
                 fontSize: 12,
-                color: isDark 
-                    ? PrescriptionColors.textSecondaryLight 
+                color: isDark
+                    ? PrescriptionColors.textSecondaryLight
                     : PrescriptionColors.textSecondaryDark,
                 fontWeight: FontWeight.w600,
               ),

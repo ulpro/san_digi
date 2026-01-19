@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import '../../constants.dart';
-import '../../models.dart';
+import '../../../models/appointment_model.dart';
 
 class MedicalReportDialog extends StatelessWidget {
   final MedicalReport report;
 
-  const MedicalReportDialog({
-    super.key,
-    required this.report,
-  });
+  const MedicalReportDialog({super.key, required this.report});
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-            RendezVousConstants.dialogBorderRadius),
+          RendezVousConstants.dialogBorderRadius,
+        ),
       ),
       child: Container(
         padding: const EdgeInsets.all(24),
@@ -25,10 +23,7 @@ class MedicalReportDialog extends StatelessWidget {
           children: [
             const Text(
               'Compte-rendu médical',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
             ),
             const SizedBox(height: 16),
             Text(
@@ -61,15 +56,13 @@ class MedicalReportDialog extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
-                        RendezVousConstants.buttonBorderRadius),
+                      RendezVousConstants.buttonBorderRadius,
+                    ),
                   ),
                 ),
                 child: const Text(
                   'Fermer',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                 ),
               ),
             ),

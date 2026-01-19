@@ -51,10 +51,7 @@ class Adherence {
   final double rate;
   final String period;
 
-  Adherence({
-    required this.rate,
-    required this.period,
-  });
+  Adherence({required this.rate, required this.period});
 
   String get ratePercentage => '${(rate * 100).toInt()}%';
   String get encouragementMessage {
@@ -72,11 +69,36 @@ class Alert {
   final String message;
   final DateTime expiryDate;
 
-  Alert({
-    required this.message,
-    required this.expiryDate,
-  });
+  Alert({required this.message, required this.expiryDate});
 
   int get daysUntilExpiry => expiryDate.difference(DateTime.now()).inDays;
   bool get isUrgent => daysUntilExpiry <= 3;
+}
+
+// Previously Medication in home/models.dart.
+// Adding it here to avoid losing it if Treatment isn't a direct replacement.
+class Medication {
+  final String name;
+  final String dosage;
+  final String status;
+  final int daysLeft;
+  final String lastTaken;
+  final String type;
+  final List<bool> schedule;
+  final int remainingPills;
+  final int totalPills;
+
+  Medication({
+    required this.name,
+    required this.dosage,
+    required this.status,
+    required this.daysLeft,
+    required this.lastTaken,
+    required this.type,
+    required this.schedule,
+    required this.remainingPills,
+    required this.totalPills,
+  });
+
+  double get progress => remainingPills / totalPills;
 }

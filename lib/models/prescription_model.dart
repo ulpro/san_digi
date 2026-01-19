@@ -87,7 +87,9 @@ class PrescriptionStats {
     required this.totalCount,
   });
 
-  factory PrescriptionStats.fromPrescriptions(List<Prescription> prescriptions) {
+  factory PrescriptionStats.fromPrescriptions(
+    List<Prescription> prescriptions,
+  ) {
     return PrescriptionStats(
       activeCount: prescriptions.where((p) => p.status == 'active').length,
       expiringCount: prescriptions.where((p) => p.status == 'expiring').length,

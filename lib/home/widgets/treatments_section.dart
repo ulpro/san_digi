@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/treatment_model.dart';
+
 import 'medication_card.dart';
 
 class TreatmentsSection extends StatefulWidget {
@@ -68,8 +69,11 @@ class _TreatmentsSectionState extends State<TreatmentsSection>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     if (widget.needsRenewal) ...[
-                      Icon(Icons.warning_amber,
-                          color: AppColors.warningOrange, size: 14),
+                      Icon(
+                        Icons.warning_amber,
+                        color: AppColors.warningOrange,
+                        size: 14,
+                      ),
                       const SizedBox(width: 4),
                       Flexible(
                         child: Text(

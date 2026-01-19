@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'data.dart';
 import 'constants.dart';
-import 'models.dart';
+import '../models/treatment_model.dart';
 import 'widgets/alert_banner.dart';
 import 'widgets/upcoming_doses_section.dart';
 import 'widgets/adherence_section.dart';
@@ -46,9 +46,7 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
         backgroundColor: TreatmentColors.successColor,
         duration: const Duration(seconds: 2),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
   }
@@ -58,9 +56,7 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(24),
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       builder: (context) {
         return Container(
@@ -71,10 +67,7 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
             children: [
               const Text(
                 'Ajouter un médicament',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 16),
               ElevatedButton(

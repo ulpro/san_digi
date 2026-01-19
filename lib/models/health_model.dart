@@ -77,11 +77,7 @@ class HealthCode {
   final String code;
   final DateTime createdAt;
 
-  HealthCode({
-    required this.id,
-    required this.code,
-    required this.createdAt,
-  });
+  HealthCode({required this.id, required this.code, required this.createdAt});
 
   factory HealthCode.defaultCode() {
     return HealthCode(
@@ -90,4 +86,24 @@ class HealthCode {
       createdAt: DateTime.now(),
     );
   }
+}
+
+class HealthIndicator {
+  final String type;
+  final String value;
+  final String unit;
+  final String date;
+  final String trend;
+  final String status;
+  final IconData icon;
+
+  HealthIndicator({
+    required this.type,
+    required this.value,
+    required this.unit,
+    required this.date,
+    required this.trend,
+    required this.status,
+    required this.icon,
+  });
 }

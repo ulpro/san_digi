@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../constants.dart';
-import '../../models.dart';
+import '../../../models/health_model.dart';
 
 class CallContactDialog extends StatelessWidget {
   final EmergencyContact contact;
@@ -15,9 +15,7 @@ class CallContactDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Text(
         'Appeler ${contact.name}',
         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
@@ -34,7 +32,11 @@ class CallContactDialog extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(Icons.person_rounded, color: ProfileColors.primaryColor, size: 24),
+                Icon(
+                  Icons.person_rounded,
+                  color: ProfileColors.primaryColor,
+                  size: 24,
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
@@ -81,10 +83,7 @@ class CallContactDialog extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: ProfileColors.primaryColor,
             foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24,
-              vertical: 12,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),

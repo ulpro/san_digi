@@ -23,14 +23,24 @@ architecture des pages
 lib/
 ├── main.dart                          # Point d'entrée
 ├── shared/                           # Fichiers partagés
-│   ├── theme.dart                   # Configuration du thème
 │   └── navigation.dart              # Gestion navigation
+│
+├── models/                           # 📦 MODÈLES DE DONNÉES (Centralisés)
+│   ├── user_model.dart
+│   ├── appointment_model.dart
+│   ├── prescription_model.dart
+│   ├── treatment_model.dart
+│   ├── health_model.dart
+│   └── ...
+│
+├── theme/                            # 🎨 THÈME & COULEURS (Centralisés)
+│   ├── app_colors.dart              # Palette de couleurs unique
+│   └── app_theme.dart               # Configuration des thèmes Light/Dark
 │
 ├── home/                             # Module Accueil
 │   ├── home_screen.dart             # Écran principal
-│   ├── models.dart                  # Modèles de données
 │   ├── data.dart                    # Données statiques
-│   ├── constants.dart               # Constantes spécifiques
+│   ├── constants.dart               # Constantes (liées au thème)
 │   └── widgets/                     # Widgets réutilisables
 │       ├── welcome_section.dart     # Section bienvenue
 │       ├── stats_cards.dart         # Cartes statistiques
@@ -44,7 +54,6 @@ lib/
 │
 ├── treatment/                        # Module Traitements
 │   ├── treatment_screen.dart        # Écran traitements
-│   ├── models.dart                  # Modèles spécifiques
 │   ├── data.dart                    # Données traitements
 │   ├── constants.dart               # Constantes traitements
 │   └── widgets/                     # Widgets traitements
@@ -58,7 +67,6 @@ lib/
 │
 ├── prescription/                     # Module Ordonnances
 │   ├── prescription_screen.dart     # Écran liste ordonnances
-│   ├── models.dart                  # Modèles ordonnances
 │   ├── data.dart                    # Données ordonnances
 │   ├── constants.dart               # Constantes ordonnances
 │   └── widgets/                     # Widgets ordonnances
@@ -85,7 +93,6 @@ lib/
 │
 ├── rendezvous/                      # Module Rendez-vous
 │   ├── rendezvous_screen.dart       # Écran rendez-vous
-│   ├── models.dart                  # Modèles RDV
 │   ├── data.dart                    # Données RDV
 │   ├── constants.dart               # Constantes RDV
 │   └── widgets/                     # Widgets RDV
@@ -104,7 +111,6 @@ lib/
 │
 └── profile/                         # Module Profil santé
     ├── profile_screen.dart          # Écran profil
-    ├── models.dart                  # Modèles profil
     ├── data.dart                    # Données profil
     ├── constants.dart               # Constantes profil
     └── widgets/                     # Widgets profil
@@ -142,7 +148,7 @@ lib/
 
 **Données**: `data.dart` - Contient les listes de traitements, prescriptions, indicateurs
 **Constantes**: `constants.dart` - Définit les couleurs et valeurs réutilisables
-**Modèles**: `models.dart` - Classes typées pour toutes les données
+**Modèles**: `lib/models/` - Classes typées pour toutes les données (Centralisées)
 
 ---
 
@@ -262,7 +268,6 @@ Chaque module suit le même pattern:
 ```
 Module/
 ├── module_screen.dart          # Écran principal (Stateful)
-├── models.dart                 # Classes typées
 ├── data.dart                   # Données statiques/mock
 ├── constants.dart              # Constantes spécifiques
 └── widgets/                    # Composants réutilisables
@@ -295,16 +300,34 @@ Module/
    - Intégration d'APIs future
 
 ## 🎨 **DESIGN SYSTEM UNIFIÉ**
-
-### **Couleurs principales** (dans chaque constants.dart)
+ 
+### **Couleurs Centralisées** (`lib/theme/app_colors.dart`)
+Toutes les couleurs de l'application sont définies en un seul point, supportant les thèmes Clair et Sombre.
+ 
 ```dart
-static const Color primaryColor = Color(0xFF2A7DE1);
-static const Color healthGreen = Color(0xFF4CD964);
-static const Color warningOrange = Color(0xFFFF9500);
-static const Color alertRed = Color(0xFFFF3B30);
-static const Color successGreen = Color(0xFF34C759);
+class AppColors {
+  static const Color primaryBlue = Color(0xFF2A7DE1);
+  static const Color healthGreen = Color(0xFF4CD964);
+  // ...
+  static const Color backgroundGray = Color(0xFFF8F9FA); // Light
+  static const Color darkBackground = Color(0xFF121A26); // Dark
+}
 ```
+ 
+### **Thèmes & Constants**
+- **Thème Global** (`lib/theme/app_theme.dart`) : Configure `ThemeData` pour toute l'app.
+- **Constants par Module** (`lib/*/constants.dart`) : font référence au thème central pour garantir la cohérence tout en restant modulaire.
+ 
+Exemple dans un module :
+```dart
+// lib/home/constants.dart
+import '../theme/app_colors.dart' as theme;
 
+class AppColors {
+  static const Color primaryBlue = theme.AppColors.primaryBlue;
+}
+```
+ 
 ### **Espacements cohérents**
 ```dart
 static const double defaultPadding = 16.0;
@@ -312,14 +335,13 @@ static const double mediumPadding = 12.0;
 static const double smallPadding = 8.0;
 static const double cardBorderRadius = 16.0;
 ```
-
+ 
 ## 📱 **RESPONSIVE DESIGN**
-
+ 
 Chaque widget gère:
-- **Adaptation aux tailles d'écran** via `MediaQuery`
-- **Layouts conditionnels** pour mobile/tablette
-- **Tailles dynamiques** basées sur la largeur d'écran
-- **Mode sombre/clair** supporté partout
+- **Adaptation aux tailles d'écran** via `MediaQuery` et `Flexible/Expanded`.
+- **Layouts conditionnels** pour mobile/tablette.
+- **Mode sombre/clair** supporté nativement via `AppTheme`.
 
 ## 🔄 **NAVIGATION ENTRE MODULES**
 

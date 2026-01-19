@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/health_model.dart';
 import 'contact_card.dart';
 
 class EmergencyContactsSection extends StatelessWidget {
@@ -30,7 +30,10 @@ class EmergencyContactsSection extends StatelessWidget {
               height: screenWidth < 360 ? 36 : 40,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [ProfileColors.primaryColor, ProfileColors.primaryGradientEnd],
+                  colors: [
+                    ProfileColors.primaryColor,
+                    ProfileColors.primaryGradientEnd,
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -49,7 +52,9 @@ class EmergencyContactsSection extends StatelessWidget {
                 style: TextStyle(
                   fontSize: screenWidth < 360 ? 16 : 18,
                   fontWeight: FontWeight.w700,
-                  color: isDark ? ProfileColors.textLight : ProfileColors.textMainColor,
+                  color: isDark
+                      ? ProfileColors.textLight
+                      : ProfileColors.textMainColor,
                 ),
               ),
             ),

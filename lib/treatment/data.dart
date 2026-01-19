@@ -1,4 +1,4 @@
-import 'models.dart';
+import '../models/treatment_model.dart';
 import 'constants.dart';
 import 'package:flutter/material.dart';
 

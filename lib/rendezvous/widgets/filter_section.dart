@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/appointment_model.dart';
 
 class FilterSection extends StatefulWidget {
   final int selectedFilterIndex;
@@ -30,8 +30,8 @@ class _FilterSectionState extends State<FilterSection> {
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w800,
-            color: isDark 
-                ? RendezVousColors.textPrimaryLight 
+            color: isDark
+                ? RendezVousColors.textPrimaryLight
                 : RendezVousColors.textPrimaryDark,
             letterSpacing: -0.5,
           ),
@@ -42,19 +42,19 @@ class _FilterSectionState extends State<FilterSection> {
           child: Row(
             children: AppointmentFilter.filters.map((filter) {
               final isSelected = widget.selectedFilterIndex == filter.index;
-              
+
               return Padding(
                 padding: EdgeInsets.only(
-                  right: filter.index < AppointmentFilter.filters.length - 1 
-                      ? RendezVousConstants.smallPadding 
+                  right: filter.index < AppointmentFilter.filters.length - 1
+                      ? RendezVousConstants.smallPadding
                       : 0,
                 ),
                 child: FilterChip(
                   label: Text(
                     filter.label,
                     style: TextStyle(
-                      color: isSelected 
-                          ? Colors.white 
+                      color: isSelected
+                          ? Colors.white
                           : RendezVousColors.primaryColor,
                       fontWeight: FontWeight.w600,
                     ),
@@ -63,18 +63,18 @@ class _FilterSectionState extends State<FilterSection> {
                   onSelected: (selected) {
                     widget.onFilterChanged(filter.index);
                   },
-                  backgroundColor: isDark 
-                      ? RendezVousColors.cardDark 
+                  backgroundColor: isDark
+                      ? RendezVousColors.cardDark
                       : Colors.white,
                   selectedColor: RendezVousColors.primaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                     side: BorderSide(
-                      color: isSelected 
-                          ? RendezVousColors.primaryColor 
-                          : (isDark 
-                              ? RendezVousColors.borderDark 
-                              : RendezVousColors.borderLight),
+                      color: isSelected
+                          ? RendezVousColors.primaryColor
+                          : (isDark
+                                ? RendezVousColors.borderDark
+                                : RendezVousColors.borderLight),
                     ),
                   ),
                   checkmarkColor: Colors.white,

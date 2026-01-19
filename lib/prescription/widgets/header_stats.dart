@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/prescription_model.dart';
 import 'stat_card.dart';
 
 class HeaderStats extends StatelessWidget {
   final PrescriptionStats stats;
 
-  const HeaderStats({
-    super.key,
-    required this.stats,
-  });
+  const HeaderStats({super.key, required this.stats});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +16,9 @@ class HeaderStats extends StatelessWidget {
       padding: const EdgeInsets.all(PrescriptionConstants.mediumPadding),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(PrescriptionConstants.cardBorderRadius),
+        borderRadius: BorderRadius.circular(
+          PrescriptionConstants.cardBorderRadius,
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),

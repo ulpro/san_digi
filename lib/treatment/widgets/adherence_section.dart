@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/treatment_model.dart';
 
 class AdherenceSection extends StatelessWidget {
   final Adherence adherence;
 
-  const AdherenceSection({
-    super.key,
-    required this.adherence,
-  });
+  const AdherenceSection({super.key, required this.adherence});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +18,9 @@ class AdherenceSection extends StatelessWidget {
         color: isDark
             ? TreatmentColors.cardBgDark
             : TreatmentColors.backgroundColorLight,
-        borderRadius:
-            BorderRadius.circular(TreatmentConstants.cardBorderRadius),
+        borderRadius: BorderRadius.circular(
+          TreatmentConstants.cardBorderRadius,
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(isDark ? 0.1 : 0.05),
@@ -80,8 +78,9 @@ class AdherenceSection extends StatelessWidget {
               color: isDark
                   ? TreatmentColors.progressBgDark
                   : TreatmentColors.progressBgLight,
-              borderRadius:
-                  BorderRadius.circular(TreatmentConstants.progressBarHeight),
+              borderRadius: BorderRadius.circular(
+                TreatmentConstants.progressBarHeight,
+              ),
             ),
             child: FractionallySizedBox(
               alignment: Alignment.centerLeft,
@@ -91,13 +90,14 @@ class AdherenceSection extends StatelessWidget {
                   gradient: const LinearGradient(
                     colors: [
                       TreatmentColors.gradientStart,
-                      TreatmentColors.gradientEnd
+                      TreatmentColors.gradientEnd,
                     ],
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                   ),
-                  borderRadius:
-                      BorderRadius.circular(TreatmentConstants.progressBarHeight),
+                  borderRadius: BorderRadius.circular(
+                    TreatmentConstants.progressBarHeight,
+                  ),
                 ),
               ),
             ),

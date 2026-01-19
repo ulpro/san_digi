@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/health_model.dart';
 import 'medical_info_row.dart';
 
 class MedicalInfoSection extends StatelessWidget {
@@ -17,7 +17,7 @@ class MedicalInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final padding = screenWidth < 360 
+    final padding = screenWidth < 360
         ? const EdgeInsets.all(16)
         : const EdgeInsets.all(20);
     final iconSize = screenWidth < 360 ? 20.0 : 22.0;
@@ -47,7 +47,10 @@ class MedicalInfoSection extends StatelessWidget {
                 height: screenWidth < 360 ? 36 : 40,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [ProfileColors.primaryColor, ProfileColors.primaryGradientEnd],
+                    colors: [
+                      ProfileColors.primaryColor,
+                      ProfileColors.primaryGradientEnd,
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -66,7 +69,9 @@ class MedicalInfoSection extends StatelessWidget {
                   style: TextStyle(
                     fontSize: screenWidth < 360 ? 16 : 18,
                     fontWeight: FontWeight.w700,
-                    color: isDark ? ProfileColors.textLight : ProfileColors.textMainColor,
+                    color: isDark
+                        ? ProfileColors.textLight
+                        : ProfileColors.textMainColor,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),

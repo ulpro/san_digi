@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_colors.dart' as theme;
+
 class AppColors {
-  static const Color primaryBlue = Color(0xFF2A7DE1);
-  static const Color healthGreen = Color(0xFF4CD964);
-  static const Color warningOrange = Color(0xFFFF9500);
-  static const Color alertRed = Color(0xFFFF3B30);
-  static const Color successGreen = Color(0xFF34C759);
-  static const Color mediumText = Color(0xFF5D6D7E);
-  static const Color lightText = Color(0xFF95A5A6);
-  static const Color purpleHealth = Color(0xFF9C27B0);
-  static const Color tealHealth = Color(0xFF009688);
-  static const Color gradientStart = Color(0xFF2A7DE1);
-  static const Color gradientEnd = Color(0xFF5AA9FF);
+  static const Color primaryBlue = theme.AppColors.primaryBlue;
+  static const Color healthGreen = theme.AppColors.healthGreen;
+  static const Color warningOrange = theme.AppColors.warningOrange;
+  static const Color alertRed = theme.AppColors.alertRed;
+  static const Color successGreen = theme.AppColors.successGreen;
+  static const Color mediumText = theme.AppColors.mediumText;
+  static const Color lightText = theme.AppColors.lightText;
+  static const Color purpleHealth = theme.AppColors.purpleHealth;
+  static const Color tealHealth = theme.AppColors.tealHealth;
+  static const Color gradientStart = theme.AppColors.gradientStart;
+  static const Color gradientEnd = theme.AppColors.gradientEnd;
 }
 
 class AppConstants {

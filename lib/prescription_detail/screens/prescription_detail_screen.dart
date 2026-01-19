@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../prescription/models.dart';  // Importe Prescription
+import '../../models/prescription_model.dart'; // Importe Prescription
 import '../widgets/header_card.dart';
 import '../widgets/info_section.dart';
 import '../widgets/medications_section.dart';
@@ -10,10 +10,7 @@ import '../widgets/bottom_action_bar.dart';
 class PrescriptionDetailScreen extends StatelessWidget {
   final Prescription prescription;
 
-  const PrescriptionDetailScreen({
-    super.key,
-    required this.prescription,
-  });
+  const PrescriptionDetailScreen({super.key, required this.prescription});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +18,7 @@ class PrescriptionDetailScreen extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Détail de l\'ordonnance'),
-      ),
+      appBar: AppBar(title: const Text('Détail de l\'ordonnance')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/treatment_model.dart';
 import 'dose_card.dart';
 
 class UpcomingDosesSection extends StatelessWidget {
@@ -33,10 +33,9 @@ class UpcomingDosesSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: TreatmentConstants.mediumPadding),
-        ...doses.map((dose) => DoseCard(
-              dose: dose,
-              onMarkAsTaken: onMarkAsTaken,
-            )),
+        ...doses.map(
+          (dose) => DoseCard(dose: dose, onMarkAsTaken: onMarkAsTaken),
+        ),
       ],
     );
   }

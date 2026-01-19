@@ -1,4 +1,4 @@
-import 'models.dart';
+import '../models/prescription_model.dart';
 
 class PrescriptionData {
   static final List<Prescription> prescriptions = [
@@ -27,7 +27,8 @@ class PrescriptionData {
           duration: 'pendant 5 jours',
         ),
       ],
-      instructions: 'À prendre pendant les repas. Éviter l\'exposition au soleil pendant le traitement à l\'Amoxicilline.',
+      instructions:
+          'À prendre pendant les repas. Éviter l\'exposition au soleil pendant le traitement à l\'Amoxicilline.',
     ),
     Prescription(
       id: '2',
@@ -100,5 +101,6 @@ class PrescriptionData {
     ),
   ];
 
-  static PrescriptionStats get stats => PrescriptionStats.fromPrescriptions(prescriptions);
+  static PrescriptionStats get stats =>
+      PrescriptionStats.fromPrescriptions(prescriptions);
 }

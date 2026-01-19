@@ -12,6 +12,9 @@ class Appointment {
   final String duration;
   final bool isToday;
 
+  // Fields from Home model to ensure compatibility if needed (optional, checking usage later)
+  // boolean isConfirmed is covered by status check.
+
   Appointment({
     required this.id,
     required this.doctor,
@@ -22,8 +25,14 @@ class Appointment {
     required this.type,
     required this.status,
     required this.duration,
-    required this.isToday,
+    this.isToday = false, // Made optional with default
   });
+
+  bool get isConfirmed => status == 'confirmed';
+  bool get isPending => status == 'pending';
+  bool get isCompleted => status == 'completed';
+  bool get isCancelled => status == 'cancelled';
+  bool get canShowActions => status == 'confirmed' || status == 'pending';
 
   Color get statusColor {
     switch (status) {
@@ -69,22 +78,13 @@ class Appointment {
         return Icons.help_rounded;
     }
   }
-
-  bool get canShowActions => status == 'confirmed' || status == 'pending';
-  bool get isConfirmed => status == 'confirmed';
-  bool get isPending => status == 'pending';
-  bool get isCompleted => status == 'completed';
-  bool get isCancelled => status == 'cancelled';
 }
 
 class AppointmentFilter {
   final String label;
   final int index;
 
-  const AppointmentFilter({
-    required this.label,
-    required this.index,
-  });
+  const AppointmentFilter({required this.label, required this.index});
 
   static const List<AppointmentFilter> filters = [
     AppointmentFilter(label: 'À venir', index: 0),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'models.dart';
+import '../models/health_model.dart';
 
 class ProfileData {
   static final MedicalInfo medicalInfo = MedicalInfo.defaultInfo();

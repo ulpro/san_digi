@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../prescription/constants.dart';
-import '../../prescription/models.dart';
+import '../../models/prescription_model.dart';
 
 class HeaderCard extends StatelessWidget {
   final Prescription prescription;
@@ -47,14 +47,8 @@ class HeaderCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         gradient: LinearGradient(
           colors: isDark
-              ? [
-                  PrescriptionColors.cardDark,
-                  const Color(0xFF252F44),
-                ]
-              : [
-                  Colors.white,
-                  const Color(0xFFF0F7FF),
-                ],
+              ? [PrescriptionColors.cardDark, const Color(0xFF252F44)]
+              : [Colors.white, const Color(0xFFF0F7FF)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -83,15 +77,18 @@ class HeaderCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
-                    color: isDark 
-                        ? PrescriptionColors.textPrimaryLight 
+                    color: isDark
+                        ? PrescriptionColors.textPrimaryLight
                         : PrescriptionColors.textPrimaryDark,
                     letterSpacing: -0.5,
                   ),
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: statusColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
@@ -185,8 +182,8 @@ class HeaderCard extends StatelessWidget {
           ),
           child: Icon(
             icon,
-            color: isWarning 
-                ? PrescriptionColors.warningColor 
+            color: isWarning
+                ? PrescriptionColors.warningColor
                 : PrescriptionColors.primaryColor,
             size: 18,
           ),
@@ -200,8 +197,8 @@ class HeaderCard extends StatelessWidget {
                 label,
                 style: TextStyle(
                   fontSize: 12,
-                  color: isDark 
-                      ? PrescriptionColors.textSecondaryLight 
+                  color: isDark
+                      ? PrescriptionColors.textSecondaryLight
                       : PrescriptionColors.textSecondaryDark,
                   fontWeight: FontWeight.w500,
                 ),
@@ -214,9 +211,9 @@ class HeaderCard extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: isWarning
                       ? PrescriptionColors.warningColor
-                      : (isDark 
-                          ? PrescriptionColors.textPrimaryLight 
-                          : const Color(0xFF1F2937)),
+                      : (isDark
+                            ? PrescriptionColors.textPrimaryLight
+                            : const Color(0xFF1F2937)),
                 ),
               ),
             ],

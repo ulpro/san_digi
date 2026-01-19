@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import '../models.dart';
+import '../../models/activity_model.dart';
 
 class ActivityItem extends StatelessWidget {
   final Activity activity;
 
-  const ActivityItem({
-    super.key,
-    required this.activity,
-  });
+  const ActivityItem({super.key, required this.activity});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +51,8 @@ class ActivityItem extends StatelessWidget {
           Text(
             activity.time,
             style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.6)),
+              color: theme.colorScheme.onSurface.withOpacity(0.6),
+            ),
             overflow: TextOverflow.ellipsis,
           ),
         ],

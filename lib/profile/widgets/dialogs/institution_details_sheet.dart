@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../constants.dart';
-import '../../models.dart';
+import '../../../models/health_model.dart';
 
 class InstitutionDetailsSheet extends StatelessWidget {
   final HealthcareInstitution institution;
 
-  const InstitutionDetailsSheet({
-    super.key,
-    required this.institution,
-  });
+  const InstitutionDetailsSheet({super.key, required this.institution});
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +22,16 @@ class InstitutionDetailsSheet extends StatelessWidget {
                 height: 56,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [ProfileColors.primaryColor, ProfileColors.primaryGradientEnd],
+                    colors: [
+                      ProfileColors.primaryColor,
+                      ProfileColors.primaryGradientEnd,
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Icon(
-                  institution.icon,
-                  color: Colors.white,
-                  size: 28,
-                ),
+                child: Icon(institution.icon, color: Colors.white, size: 28),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -63,11 +59,7 @@ class InstitutionDetailsSheet extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
-          _buildDetailRow(
-            Icons.phone_rounded,
-            'Téléphone',
-            institution.phone,
-          ),
+          _buildDetailRow(Icons.phone_rounded, 'Téléphone', institution.phone),
           const SizedBox(height: 12),
           if (institution.address != null)
             _buildDetailRow(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../prescription/constants.dart';
-import '../../prescription/models.dart';
+import '../../models/prescription_model.dart';
 
 class MedicationCard extends StatelessWidget {
   final MedicationDetail medication;
@@ -17,16 +17,13 @@ class MedicationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        bottom: 12, 
-        top: index == 0 ? 0 : 0
-      ),
+      margin: EdgeInsets.only(bottom: 12, top: index == 0 ? 0 : 0),
       padding: const EdgeInsets.all(PrescriptionConstants.mediumPadding),
       decoration: BoxDecoration(
-        color: isDark 
-            ? PrescriptionColors.cardDark 
-            : Colors.white,
-        borderRadius: BorderRadius.circular(PrescriptionConstants.cardBorderRadius),
+        color: isDark ? PrescriptionColors.cardDark : Colors.white,
+        borderRadius: BorderRadius.circular(
+          PrescriptionConstants.cardBorderRadius,
+        ),
         border: Border.all(
           color: isDark
               ? PrescriptionColors.borderDark.withOpacity(0.3)
@@ -65,8 +62,8 @@ class MedicationCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: isDark 
-                        ? PrescriptionColors.textPrimaryLight 
+                    color: isDark
+                        ? PrescriptionColors.textPrimaryLight
                         : PrescriptionColors.textPrimaryDark,
                   ),
                 ),
@@ -119,8 +116,8 @@ class MedicationCard extends StatelessWidget {
           Icon(
             icon,
             size: 12,
-            color: isDark 
-                ? PrescriptionColors.textSecondaryLight 
+            color: isDark
+                ? PrescriptionColors.textSecondaryLight
                 : PrescriptionColors.textSecondaryDark,
           ),
           const SizedBox(width: 4),
@@ -129,9 +126,7 @@ class MedicationCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w500,
-              color: isDark 
-                  ? const Color(0xFFE5E7EB) 
-                  : const Color(0xFF4B5563),
+              color: isDark ? const Color(0xFFE5E7EB) : const Color(0xFF4B5563),
             ),
           ),
         ],

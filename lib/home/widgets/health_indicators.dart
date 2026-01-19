@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/health_model.dart';
 
 class HealthIndicators extends StatelessWidget {
   final List<HealthIndicator> indicators;
@@ -18,8 +18,8 @@ class HealthIndicators extends StatelessWidget {
     final indicatorWidth = screenWidth > 600
         ? 160.0
         : screenWidth > 400
-            ? 140.0
-            : (screenWidth - 60) / 2;
+        ? 140.0
+        : (screenWidth - 60) / 2;
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -44,8 +44,10 @@ class HealthIndicators extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.bar_chart_rounded,
-                    color: AppColors.primaryBlue),
+                icon: Icon(
+                  Icons.bar_chart_rounded,
+                  color: AppColors.primaryBlue,
+                ),
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
               ),
@@ -125,8 +127,7 @@ class HealthIndicators extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  color:
-                      getStatusColor(indicator.status).withOpacity(0.1),
+                  color: getStatusColor(indicator.status).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Icon(

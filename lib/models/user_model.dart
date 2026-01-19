@@ -1,4 +1,3 @@
-// lib/user/auth/models/user.dart
 class User {
   final String id;
   final String email;
@@ -38,7 +37,7 @@ class User {
       phone: json['phone'] ?? '',
       birthDate: DateTime.parse(json['birthDate']),
       socialSecurityNumber: json['socialSecurityNumber'] ?? '',
-      lastConsultation: json['lastConsultation'] != null 
+      lastConsultation: json['lastConsultation'] != null
           ? DateTime.parse(json['lastConsultation'])
           : null,
       doctorName: json['doctorName'],
@@ -129,14 +128,17 @@ class User {
   // Getters utiles
   int get age {
     final now = DateTime.now();
-    return now.year - birthDate.year - 
-        (now.month < birthDate.month || 
-         (now.month == birthDate.month && now.day < birthDate.day) ? 1 : 0);
+    return now.year -
+        birthDate.year -
+        (now.month < birthDate.month ||
+                (now.month == birthDate.month && now.day < birthDate.day)
+            ? 1
+            : 0);
   }
 
-  bool get hasCompleteProfile => 
-      firstName.isNotEmpty && 
-      lastName.isNotEmpty && 
-      phone.isNotEmpty && 
+  bool get hasCompleteProfile =>
+      firstName.isNotEmpty &&
+      lastName.isNotEmpty &&
+      phone.isNotEmpty &&
       socialSecurityNumber.isNotEmpty;
 }

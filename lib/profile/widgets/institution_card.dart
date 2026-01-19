@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/health_model.dart';
 
 class InstitutionCard extends StatelessWidget {
   final HealthcareInstitution institution;
@@ -22,7 +22,7 @@ class InstitutionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final iconSize = screenWidth < 360 ? 48.0 : 56.0;
     final arrowButtonSize = screenWidth < 360 ? 40.0 : 48.0;
-    final padding = screenWidth < 360 
+    final padding = screenWidth < 360
         ? const EdgeInsets.all(12)
         : const EdgeInsets.all(16);
 
@@ -48,7 +48,9 @@ class InstitutionCard extends StatelessWidget {
               height: iconSize,
               decoration: BoxDecoration(
                 color: ProfileColors.primaryColor.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(ProfileConstants.smallCardBorderRadius),
+                borderRadius: BorderRadius.circular(
+                  ProfileConstants.smallCardBorderRadius,
+                ),
                 border: Border.all(
                   color: ProfileColors.primaryColor.withOpacity(0.3),
                   width: 1.5,
@@ -74,7 +76,9 @@ class InstitutionCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: screenWidth < 360 ? 15 : 16,
                       fontWeight: FontWeight.w600,
-                      color: isDark ? ProfileColors.textLight : ProfileColors.textMainColor,
+                      color: isDark
+                          ? ProfileColors.textLight
+                          : ProfileColors.textMainColor,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

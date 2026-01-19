@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'data.dart';
 import 'constants.dart';
-import 'models.dart';
+import '../models/health_model.dart';
 import 'widgets/app_bar.dart';
 import 'widgets/qr_code_section.dart';
 import 'widgets/medical_info_section.dart';
@@ -129,8 +129,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: isDark 
-          ? ProfileColors.backgroundColorDark 
+      backgroundColor: isDark
+          ? ProfileColors.backgroundColorDark
           : ProfileColors.backgroundColorLight,
       body: SafeArea(
         child: Column(

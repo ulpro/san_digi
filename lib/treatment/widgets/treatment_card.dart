@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/treatment_model.dart';
 
 class TreatmentCard extends StatelessWidget {
   final Treatment treatment;
 
-  const TreatmentCard({
-    super.key,
-    required this.treatment,
-  });
+  const TreatmentCard({super.key, required this.treatment});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +18,9 @@ class TreatmentCard extends StatelessWidget {
         color: isDark
             ? TreatmentColors.cardBgDark
             : TreatmentColors.backgroundColorLight,
-        borderRadius:
-            BorderRadius.circular(TreatmentConstants.cardBorderRadius),
+        borderRadius: BorderRadius.circular(
+          TreatmentConstants.cardBorderRadius,
+        ),
         border: Border.all(
           color: isDark
               ? TreatmentColors.borderColorDark.withOpacity(0.3)
@@ -54,8 +52,9 @@ class TreatmentCard extends StatelessWidget {
                   color: treatment.needsRenewal
                       ? TreatmentColors.dangerColor.withOpacity(0.1)
                       : TreatmentColors.primaryColor.withOpacity(0.1),
-                  borderRadius:
-                      BorderRadius.circular(TreatmentConstants.extraSmallPadding),
+                  borderRadius: BorderRadius.circular(
+                    TreatmentConstants.extraSmallPadding,
+                  ),
                 ),
                 child: Text(
                   '${treatment.remainingDays} jours restants',
@@ -92,7 +91,8 @@ class TreatmentCard extends StatelessWidget {
                         ? TreatmentColors.progressBgDark
                         : TreatmentColors.progressBgLight,
                     borderRadius: BorderRadius.circular(
-                        TreatmentConstants.progressBarHeight / 2),
+                      TreatmentConstants.progressBarHeight / 2,
+                    ),
                   ),
                   child: FractionallySizedBox(
                     alignment: Alignment.centerLeft,
@@ -103,17 +103,18 @@ class TreatmentCard extends StatelessWidget {
                           colors: treatment.progress < 0.2
                               ? [
                                   TreatmentColors.dangerColor,
-                                  TreatmentColors.warningLight
+                                  TreatmentColors.warningLight,
                                 ]
                               : [
                                   TreatmentColors.gradientStart,
-                                  TreatmentColors.gradientEnd
+                                  TreatmentColors.gradientEnd,
                                 ],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),
                         borderRadius: BorderRadius.circular(
-                            TreatmentConstants.progressBarHeight / 2),
+                          TreatmentConstants.progressBarHeight / 2,
+                        ),
                       ),
                     ),
                   ),

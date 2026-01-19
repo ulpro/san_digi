@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/appointment_model.dart';
 
 class AppointmentCard extends StatelessWidget {
   final Appointment appointment;
@@ -26,12 +26,12 @@ class AppointmentCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: RendezVousConstants.smallPadding),
       decoration: BoxDecoration(
-        color: isDark 
-            ? RendezVousColors.cardDark 
-            : Colors.white,
-        borderRadius: BorderRadius.circular(RendezVousConstants.cardBorderRadius),
+        color: isDark ? RendezVousColors.cardDark : Colors.white,
+        borderRadius: BorderRadius.circular(
+          RendezVousConstants.cardBorderRadius,
+        ),
         border: Border.all(
-          color: isDark 
+          color: isDark
               ? RendezVousColors.borderDark.withOpacity(0.3)
               : RendezVousColors.borderLight,
         ),
@@ -74,13 +74,17 @@ class AppointmentCard extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             color: appointment.statusColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(RendezVousConstants.smallCardBorderRadius),
+            borderRadius: BorderRadius.circular(
+              RendezVousConstants.smallCardBorderRadius,
+            ),
           ),
           child: Row(
             children: [
-              Icon(appointment.statusIcon, 
-                  color: appointment.statusColor, 
-                  size: 14),
+              Icon(
+                appointment.statusIcon,
+                color: appointment.statusColor,
+                size: 14,
+              ),
               const SizedBox(width: 6),
               Text(
                 appointment.statusText,
@@ -101,7 +105,9 @@ class AppointmentCard extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               color: RendezVousColors.primaryColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(RendezVousConstants.smallCardBorderRadius),
+              borderRadius: BorderRadius.circular(
+                RendezVousConstants.smallCardBorderRadius,
+              ),
             ),
             child: Text(
               'AUJOURD\'HUI',
@@ -126,7 +132,9 @@ class AppointmentCard extends StatelessWidget {
           height: 56,
           decoration: BoxDecoration(
             color: RendezVousColors.primaryColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(RendezVousConstants.smallCardBorderRadius),
+            borderRadius: BorderRadius.circular(
+              RendezVousConstants.smallCardBorderRadius,
+            ),
           ),
           child: Icon(
             Icons.local_hospital_rounded,
@@ -135,7 +143,7 @@ class AppointmentCard extends StatelessWidget {
           ),
         ),
         const SizedBox(width: RendezVousConstants.mediumPadding),
-        
+
         // Détails
         Expanded(
           child: Column(
@@ -146,8 +154,8 @@ class AppointmentCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
-                  color: isDark 
-                      ? RendezVousColors.textPrimaryLight 
+                  color: isDark
+                      ? RendezVousColors.textPrimaryLight
                       : RendezVousColors.textPrimaryDark,
                 ),
               ),
@@ -156,13 +164,13 @@ class AppointmentCard extends StatelessWidget {
                 appointment.specialty,
                 style: TextStyle(
                   fontSize: 14,
-                  color: isDark 
-                      ? RendezVousColors.textSecondaryLight 
+                  color: isDark
+                      ? RendezVousColors.textSecondaryLight
                       : RendezVousColors.textSecondaryDark,
                 ),
               ),
               const SizedBox(height: RendezVousConstants.extraSmallPadding),
-              
+
               // Date et heure
               _buildDetailRow(
                 Icons.calendar_today_rounded,
@@ -170,7 +178,7 @@ class AppointmentCard extends StatelessWidget {
                 isDark,
               ),
               const SizedBox(height: 6),
-              
+
               // Type et durée
               _buildDetailRow(
                 Icons.access_time_rounded,
@@ -178,7 +186,7 @@ class AppointmentCard extends StatelessWidget {
                 isDark,
               ),
               const SizedBox(height: 6),
-              
+
               // Adresse
               _buildDetailRow(
                 Icons.location_on_rounded,
@@ -199,8 +207,8 @@ class AppointmentCard extends StatelessWidget {
         Icon(
           icon,
           size: 16,
-          color: isDark 
-              ? RendezVousColors.textSecondaryLight 
+          color: isDark
+              ? RendezVousColors.textSecondaryLight
               : RendezVousColors.textSecondaryDark,
         ),
         const SizedBox(width: RendezVousConstants.extraSmallPadding),
@@ -209,8 +217,8 @@ class AppointmentCard extends StatelessWidget {
             text,
             style: TextStyle(
               fontSize: 13,
-              color: isDark 
-                  ? RendezVousColors.textSecondaryLight 
+              color: isDark
+                  ? RendezVousColors.textSecondaryLight
                   : RendezVousColors.textSecondaryDark,
             ),
           ),
@@ -233,19 +241,14 @@ class AppointmentCard extends StatelessWidget {
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
-                      RendezVousConstants.buttonBorderRadius),
+                    RendezVousConstants.buttonBorderRadius,
+                  ),
                 ),
               ),
-              icon: const Icon(
-                Icons.info_outline_rounded,
-                size: 18,
-              ),
+              icon: const Icon(Icons.info_outline_rounded, size: 18),
               label: const Text(
                 'Détails',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
               ),
             ),
           ),
@@ -259,12 +262,13 @@ class AppointmentCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
-                      RendezVousConstants.buttonBorderRadius),
+                    RendezVousConstants.buttonBorderRadius,
+                  ),
                 ),
               ),
               icon: Icon(
-                appointment.isConfirmed 
-                    ? Icons.calendar_today_rounded 
+                appointment.isConfirmed
+                    ? Icons.calendar_today_rounded
                     : Icons.check_rounded,
                 size: 18,
               ),
@@ -290,21 +294,19 @@ class AppointmentCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
-                  RendezVousConstants.buttonBorderRadius),
+                RendezVousConstants.buttonBorderRadius,
+              ),
             ),
           ),
           icon: const Icon(Icons.description_rounded, size: 18),
           label: const Text(
             'Voir le compte-rendu',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           ),
         ),
       );
     }
-    
+
     return const SizedBox.shrink();
   }
 }

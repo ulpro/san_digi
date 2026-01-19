@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_colors.dart';
+
 class TreatmentColors {
-  static const Color primaryColor = Color(0xFF005A9C);
-  static const Color successColor = Color(0xFF28A745);
-  static const Color warningColor = Color(0xFFFFC107);
-  static const Color dangerColor = Color(0xFFDC3545);
-  static const Color backgroundColorLight = Color(0xFFFFFFFF);
-  static const Color backgroundColorDark = Color(0xFF111521);
-  static const Color textPrimaryDark = Color(0xFF111827);
-  static const Color textPrimaryLight = Colors.white;
-  static const Color textSecondaryDark = Color(0xFF6B7280);
-  static const Color textSecondaryLight = Color(0xFF9CA3AF);
-  static const Color borderColorDark = Color(0xFF374151);
-  static const Color borderColorLight = Color(0xFFE5E7EB);
-  static const Color cardBgDark = Color(0xFF1F2937);
-  static const Color progressBgDark = Color(0xFF374151);
-  static const Color progressBgLight = Color(0xFFE5E7EB);
-  static const Color gradientStart = Color(0xFF005A9C);
-  static const Color gradientEnd = Color(0xFF2A7DE1);
-  static const Color warningLight = Color(0xFFFF6B6B);
+  static const Color primaryColor = AppColors.primaryDark; // Was 005A9C
+  static const Color successColor = AppColors.successGreen;
+  static const Color warningColor = AppColors.warningOrange;
+  static const Color dangerColor = AppColors.alertRed;
+  static const Color backgroundColorLight = AppColors.white;
+  static const Color backgroundColorDark = AppColors.darkBackground;
+  static const Color textPrimaryDark = AppColors.textPrimary;
+  static const Color textPrimaryLight = AppColors.white;
+  static const Color textSecondaryDark = AppColors.mediumText;
+  static const Color textSecondaryLight = AppColors.lightText;
+  static const Color borderColorDark = AppColors.borderDark;
+  static const Color borderColorLight = AppColors.borderLight;
+  static const Color cardBgDark = AppColors.darkCard;
+  static const Color progressBgDark = AppColors.borderDark;
+  static const Color progressBgLight = AppColors.borderLight;
+  static const Color gradientStart = AppColors.primaryDark; // Was 005A9C
+  static const Color gradientEnd = AppColors.primaryBlue; // Was 2A7DE1
+  static const Color warningLight = AppColors
+      .warningOrange; // Was FF6B6B (reddish orange) -> uniformized to warningOrange
 }
 
 class TreatmentConstants {

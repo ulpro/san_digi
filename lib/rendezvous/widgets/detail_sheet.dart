@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/appointment_model.dart';
 import 'form_fields.dart';
 
 class DetailSheet extends StatelessWidget {
@@ -23,13 +23,10 @@ class DetailSheet extends StatelessWidget {
         children: [
           const Text(
             'Détails du rendez-vous',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 20),
-          
+
           _buildDetailSection(
             'Médecin',
             appointment.doctor,
@@ -66,7 +63,7 @@ class DetailSheet extends StatelessWidget {
             Icons.location_on_rounded,
           ),
           const SizedBox(height: 24),
-          
+
           Row(
             children: [
               Expanded(
@@ -76,15 +73,13 @@ class DetailSheet extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
-                          RendezVousConstants.buttonBorderRadius),
+                        RendezVousConstants.buttonBorderRadius,
+                      ),
                     ),
                   ),
                   child: const Text(
                     'Fermer',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
@@ -101,15 +96,13 @@ class DetailSheet extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
-                          RendezVousConstants.buttonBorderRadius),
+                        RendezVousConstants.buttonBorderRadius,
+                      ),
                     ),
                   ),
                   child: const Text(
                     'Annuler RDV',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
@@ -130,11 +123,7 @@ class DetailSheet extends StatelessWidget {
             color: RendezVousColors.primaryColor.withOpacity(0.1),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Icon(
-            icon,
-            color: RendezVousColors.primaryColor,
-            size: 20,
-          ),
+          child: Icon(icon, color: RendezVousColors.primaryColor, size: 20),
         ),
         const SizedBox(width: 12),
         Expanded(

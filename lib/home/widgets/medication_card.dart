@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/treatment_model.dart';
 
 class MedicationCard extends StatelessWidget {
   final Medication medication;
 
-  const MedicationCard({
-    super.key,
-    required this.medication,
-  });
+  const MedicationCard({super.key, required this.medication});
 
   @override
   Widget build(BuildContext context) {

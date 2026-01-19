@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../models.dart';
+import '../../models/health_model.dart';
 
 class ContactCard extends StatelessWidget {
   final EmergencyContact contact;
@@ -22,7 +22,7 @@ class ContactCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final avatarSize = screenWidth < 360 ? 48.0 : 56.0;
     final callButtonSize = screenWidth < 360 ? 44.0 : 52.0;
-    final padding = screenWidth < 360 
+    final padding = screenWidth < 360
         ? const EdgeInsets.all(12)
         : const EdgeInsets.all(16);
 
@@ -48,11 +48,16 @@ class ContactCard extends StatelessWidget {
               height: avatarSize,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [ProfileColors.primaryColor, ProfileColors.primaryGradientEnd],
+                  colors: [
+                    ProfileColors.primaryColor,
+                    ProfileColors.primaryGradientEnd,
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(ProfileConstants.smallCardBorderRadius),
+                borderRadius: BorderRadius.circular(
+                  ProfileConstants.smallCardBorderRadius,
+                ),
               ),
               child: Center(
                 child: Icon(
@@ -74,7 +79,9 @@ class ContactCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: screenWidth < 360 ? 15 : 16,
                       fontWeight: FontWeight.w600,
-                      color: isDark ? ProfileColors.textLight : ProfileColors.textMainColor,
+                      color: isDark
+                          ? ProfileColors.textLight
+                          : ProfileColors.textMainColor,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -135,7 +142,10 @@ class ContactCard extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: const LinearGradient(
-                  colors: [ProfileColors.successColor, ProfileColors.callButtonColor],
+                  colors: [
+                    ProfileColors.successColor,
+                    ProfileColors.callButtonColor,
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),

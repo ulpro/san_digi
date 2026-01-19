@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../constants.dart';
-import '../../models.dart';
+import '../../../models/health_model.dart';
 
 class EditMedicalInfoSheet extends StatefulWidget {
   final MedicalInfo medicalInfo;
@@ -24,8 +24,12 @@ class _EditMedicalInfoSheetState extends State<EditMedicalInfoSheet> {
   @override
   void initState() {
     super.initState();
-    _allergiesController = TextEditingController(text: widget.medicalInfo.allergies);
-    _bloodTypeController = TextEditingController(text: widget.medicalInfo.bloodType);
+    _allergiesController = TextEditingController(
+      text: widget.medicalInfo.allergies,
+    );
+    _bloodTypeController = TextEditingController(
+      text: widget.medicalInfo.bloodType,
+    );
     _treatmentsController = TextEditingController(
       text: widget.medicalInfo.importantTreatments.join(', '),
     );
@@ -43,7 +47,10 @@ class _EditMedicalInfoSheetState extends State<EditMedicalInfoSheet> {
     final updatedInfo = MedicalInfo(
       allergies: _allergiesController.text,
       bloodType: _bloodTypeController.text,
-      importantTreatments: _treatmentsController.text.split(',').map((t) => t.trim()).toList(),
+      importantTreatments: _treatmentsController.text
+          .split(',')
+          .map((t) => t.trim())
+          .toList(),
     );
     widget.onSave(updatedInfo);
     Navigator.pop(context);
@@ -88,7 +95,9 @@ class _EditMedicalInfoSheetState extends State<EditMedicalInfoSheet> {
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(ProfileConstants.buttonBorderRadius),
+                  borderRadius: BorderRadius.circular(
+                    ProfileConstants.buttonBorderRadius,
+                  ),
                 ),
               ),
               child: const Text(
@@ -108,13 +117,17 @@ class _EditMedicalInfoSheetState extends State<EditMedicalInfoSheet> {
       decoration: InputDecoration(
         labelText: label,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(ProfileConstants.buttonBorderRadius),
+          borderRadius: BorderRadius.circular(
+            ProfileConstants.buttonBorderRadius,
+          ),
           borderSide: BorderSide(color: Colors.grey.shade300),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(ProfileConstants.buttonBorderRadius),
+          borderRadius: BorderRadius.circular(
+            ProfileConstants.buttonBorderRadius,
+          ),
           borderSide: const BorderSide(
-            color: ProfileColors.primaryColor, 
+            color: ProfileColors.primaryColor,
             width: 2,
           ),
         ),
