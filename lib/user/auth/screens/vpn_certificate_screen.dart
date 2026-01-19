@@ -4,7 +4,7 @@ import '../../../shared/app_colors.dart';
 
 class VPNCertificateScreen extends StatefulWidget {
   final Function(bool) onCertificateDownloaded;
-  
+
   const VPNCertificateScreen({
     super.key,
     required this.onCertificateDownloaded,
@@ -35,19 +35,33 @@ class _VPNCertificateScreenState extends State<VPNCertificateScreen> {
                     width: 120,
                     height: 120,
                     decoration: BoxDecoration(
-                      color: AppColors.successGreen.withOpacity(0.1),
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.successGreen.withOpacity(0.2),
+                          const Color(0xFF4CD964).withOpacity(0.05),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
                       shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.successGreen.withOpacity(0.15),
+                          blurRadius: 20,
+                          spreadRadius: 5,
+                        ),
+                      ],
                     ),
-                    child: Icon(
-                      Icons.check_circle,
+                    child: const Icon(
+                      Icons.check_circle_rounded,
                       size: 60,
                       color: AppColors.successGreen,
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 32),
-                
+
                 // Titre
                 Text(
                   'Compte créé avec succès !',
@@ -56,9 +70,9 @@ class _VPNCertificateScreenState extends State<VPNCertificateScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                
+
                 const SizedBox(height: 16),
-                
+
                 // Description
                 Text(
                   'Votre compte San Digi est maintenant prêt. '
@@ -67,12 +81,14 @@ class _VPNCertificateScreenState extends State<VPNCertificateScreen> {
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.5,
-                    color: isDark ? Colors.grey.shade400 : AppColors.textSecondary,
+                    color: isDark
+                        ? Colors.grey.shade400
+                        : AppColors.textSecondary,
                   ),
                 ),
-                
+
                 const SizedBox(height: 48),
-                
+
                 // Carte du certificat
                 Container(
                   padding: const EdgeInsets.all(20),
@@ -111,14 +127,18 @@ class _VPNCertificateScreenState extends State<VPNCertificateScreen> {
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: isDark ? Colors.white : AppColors.textPrimary,
+                                    color: isDark
+                                        ? Colors.white
+                                        : AppColors.textPrimary,
                                   ),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   'Fichier .p12 • 48 KB',
                                   style: TextStyle(
-                                    color: isDark ? Colors.grey.shade400 : AppColors.textSecondary,
+                                    color: isDark
+                                        ? Colors.grey.shade400
+                                        : AppColors.textSecondary,
                                   ),
                                 ),
                               ],
@@ -127,12 +147,14 @@ class _VPNCertificateScreenState extends State<VPNCertificateScreen> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      
+
                       // Bouton de téléchargement
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton.icon(
-                          onPressed: _isDownloading ? null : _downloadCertificate,
+                          onPressed: _isDownloading
+                              ? null
+                              : _downloadCertificate,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primaryBlue,
                             foregroundColor: Colors.white,
@@ -147,7 +169,9 @@ class _VPNCertificateScreenState extends State<VPNCertificateScreen> {
                                   height: 20,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
-                                    valueColor: AlwaysStoppedAnimation(Colors.white),
+                                    valueColor: AlwaysStoppedAnimation(
+                                      Colors.white,
+                                    ),
                                   ),
                                 )
                               : const Icon(Icons.download_outlined),
@@ -161,32 +185,35 @@ class _VPNCertificateScreenState extends State<VPNCertificateScreen> {
                     ],
                   ),
                 ),
-                
+
                 const SizedBox(height: 24),
-                
+
                 // Note d'information
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: AppColors.primaryBlue.withOpacity(0.05),
+                    color: AppColors.primaryBlue.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: AppColors.primaryBlue.withOpacity(0.2),
+                      color: AppColors.primaryBlue.withOpacity(0.3),
                     ),
                   ),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.info_outline,
                         color: AppColors.primaryBlue,
+                        size: 20,
                       ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
                           'Ce certificat est optionnel. Vous pouvez le télécharger plus tard depuis vos paramètres.',
                           style: TextStyle(
-                            color: isDark ? Colors.grey.shade300 : AppColors.textSecondary,
-                            fontSize: 14,
+                            color: isDark ? Colors.white70 : Colors.black87,
+                            fontSize: 13,
+                            height: 1.5,
                           ),
                         ),
                       ),
@@ -196,9 +223,6 @@ class _VPNCertificateScreenState extends State<VPNCertificateScreen> {
               ],
             ),
           ),
-          
-          // SUPPRIMEZ le bouton "Accéder à mon compte" ici
-          // La navigation est gérée uniquement par register_screen.dart
         ],
       ),
     );
@@ -224,7 +248,7 @@ class _VPNCertificateScreenState extends State<VPNCertificateScreen> {
 
     // Notifier le parent que le certificat a été téléchargé
     widget.onCertificateDownloaded(true);
-    
+
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Certificat téléchargé avec succès'),

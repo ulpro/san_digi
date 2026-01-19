@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:san_digi/splash_screen.dart';
-import 'shared/navigation.dart'; // Importation du système de navigation
+import 'user/auth/screens/welcome_screen.dart';
 
 // ==============================================
 // PROFESSIONAL HEALTHCARE COLOR PALETTE
@@ -180,7 +179,8 @@ class SanDigiApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home:  const MainNavigation(), // ← MODIFICATION ICI : Utilisation du système de navigation
+      home:
+          const WelcomeScreen(), // ← MODIFIED: Set WelcomeScreen as entry point
     );
   }
 }

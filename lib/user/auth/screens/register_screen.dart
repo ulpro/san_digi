@@ -16,16 +16,15 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final PageController _pageController = PageController();
   int _currentStep = 0;
-  
+
   final AuthService _authService = AuthService();
   Map<String, dynamic> _userData = {};
   String _password = '';
-  
+
   // Ajout de variables de validation
   bool _isPersonalInfoValid = false;
   bool _isPasswordValid = false;
   bool _isPasswordMatching = false;
-  bool _certificateDownloaded = false;
 
   @override
   void initState() {
@@ -54,37 +53,89 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _authService.saveRegistrationStep(_userData);
   }
 
-  void _savePassword(String password) {
+  void _handlePasswordChanged(String password, String confirmPassword) {
     setState(() {
       _password = password;
       _userData['password'] = password;
+      _userData['confirmPassword'] = confirmPassword;
       _validatePassword();
     });
     _authService.saveRegistrationStep(_userData);
   }
 
   void _handleCertificateDownloaded(bool downloaded) {
-    setState(() {
-      _certificateDownloaded = downloaded;
-    });
+    // Certificate download status tracking removed as it's optional
+  }
+
+  void _showValidationError() {
+    String message;
+    switch (_currentStep) {
+      case 0:
+        final missing = _getMissingFields();
+        if (missing.isNotEmpty) {
+          message = 'Champs manquants ou invalides : ${missing.join(", ")}';
+        } else {
+          message = 'Veuillez remplir tous les champs obligatoires';
+        }
+        break;
+      case 1:
+        if (!_isPasswordValid) {
+          message =
+              'Le mot de passe doit contenir 8+ caractères, majuscule, minuscule et chiffre/spécial';
+        } else if (!_isPasswordMatching) {
+          message = 'Les mots de passe ne correspondent pas';
+        } else {
+          message = 'Veuillez vérifier votre mot de passe';
+        }
+        break;
+      default:
+        message = 'Veuillez vérifier vos informations';
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: Colors.red),
+    );
+  }
+
+  List<String> _getMissingFields() {
+    final List<String> missing = [];
+    final data = _userData;
+
+    if ((data['firstName']?.isEmpty ?? true)) missing.add('Prénom');
+    if ((data['lastName']?.isEmpty ?? true)) missing.add('Nom');
+
+    final email = data['email'] ?? '';
+    // Relaxed email regex
+    final isEmailValid =
+        email.isNotEmpty && email.contains('@') && email.contains('.');
+    if (!isEmailValid) missing.add('Email vide ou invalide');
+
+    if ((data['phone']?.isEmpty ?? true)) missing.add('Téléphone');
+    if ((data['birthDate']?.isEmpty ?? true)) missing.add('Date de naissance');
+    if ((data['socialSecurityNumber']?.isEmpty ?? true))
+      missing.add('Numéro de sécurité sociale');
+
+    return missing;
   }
 
   void _validatePersonalInfo() {
     final hasFirstName = _userData['firstName']?.isNotEmpty ?? false;
     final hasLastName = _userData['lastName']?.isNotEmpty ?? false;
     final email = _userData['email'] ?? '';
-    final hasValidEmail = email.isNotEmpty && 
-        RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+    final hasValidEmail =
+        email.isNotEmpty && email.contains('@') && email.contains('.');
     final hasPhone = _userData['phone']?.isNotEmpty ?? false;
     final hasBirthDate = _userData['birthDate']?.isNotEmpty ?? false;
-    final hasSocialSecurity = _userData['socialSecurityNumber']?.isNotEmpty ?? false;
-    
+    final hasSocialSecurity =
+        _userData['socialSecurityNumber']?.isNotEmpty ?? false;
+
     setState(() {
-      _isPersonalInfoValid = hasFirstName && 
-          hasLastName && 
-          hasValidEmail && 
-          hasPhone && 
-          hasBirthDate && 
+      _isPersonalInfoValid =
+          hasFirstName &&
+          hasLastName &&
+          hasValidEmail &&
+          hasPhone &&
+          hasBirthDate &&
           hasSocialSecurity;
     });
   }
@@ -93,8 +144,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final password = _password;
     final hasMinLength = password.length >= 8;
     final hasUpperLower = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])').hasMatch(password);
-    final hasNumberOrSpecial = RegExp(r'^(?=.*\d|.*[!@#$%^&*(),.?":{}|<>])').hasMatch(password);
-    
+    final hasNumberOrSpecial = RegExp(
+      r'^(?=.*\d|.*[!@#$%^&*(),.?":{}|<>])',
+    ).hasMatch(password);
+
     setState(() {
       _isPasswordValid = hasMinLength && hasUpperLower && hasNumberOrSpecial;
       _isPasswordMatching = password == (_userData['confirmPassword'] ?? '');
@@ -103,18 +156,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Future<void> _completeRegistration() async {
     try {
-      // Parser les dates
       final birthDate = _parseDate(_userData['birthDate']!);
       final lastConsultation = _userData['lastConsultation'] != null
           ? _parseDate(_userData['lastConsultation']!)
           : null;
-      
+
       if (birthDate == null) {
         _showError('Date de naissance invalide');
         return;
       }
 
-      // Appeler l'inscription
       final success = await _authService.registerUser(
         email: _userData['email']!,
         password: _password,
@@ -155,10 +206,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: Colors.red,
-      ),
+      SnackBar(content: Text(message), backgroundColor: Colors.red),
     );
   }
 
@@ -211,7 +259,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       case 1:
         return _isPasswordValid && _isPasswordMatching;
       case 2:
-        return true; // L'étape 3 peut toujours être validée
+        return true;
       default:
         return false;
     }
@@ -222,7 +270,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       _showValidationError();
       return;
     }
-    
+
     if (_currentStep < 2) {
       _nextStep();
     } else {
@@ -230,192 +278,226 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  void _showValidationError() {
-    String message;
+  String _getStepTitle() {
     switch (_currentStep) {
       case 0:
-        message = 'Veuillez remplir tous les champs obligatoires';
-        break;
+        return 'Profil Patient';
       case 1:
-        message = 'Le mot de passe ne respecte pas toutes les exigences de sécurité';
-        break;
+        return 'Sécurité';
+      case 2:
+        return 'Certificat';
       default:
-        message = 'Veuillez vérifier vos informations';
+        return '';
     }
-    
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: Colors.red,
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    
+
     return Scaffold(
-      backgroundColor: isDark 
-          ? AppColors.backgroundDark 
+      backgroundColor: isDark
+          ? AppColors.backgroundDark
           : AppColors.backgroundLight,
       body: SafeArea(
-        child: Column(
-          children: [
-            // AppBar
-            Container(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: isDark ? AppColors.borderDark : AppColors.borderLight,
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: Column(
+              children: [
+                // Custom AppBar
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
                   ),
-                ),
-              ),
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: _previousStep,
-                    icon: Icon(
-                      Icons.arrow_back_ios_new,
-                      color: isDark ? AppColors.white : AppColors.textPrimary,
-                      size: 20,
-                    ),
+                  decoration: BoxDecoration(
+                    color: isDark ? AppColors.backgroundDark : Colors.white,
+                    boxShadow: [
+                      if (!isDark)
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                    ],
                   ),
-                  Expanded(
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Text(
-                            'Création de compte',
+                  child: SafeArea(
+                    bottom: false,
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: _previousStep,
+                          icon: Icon(
+                            Icons.arrow_back_ios_new_rounded,
+                            color: AppColors.primaryBlue,
+                            size: 20,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "Vérification d'Identité",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: isDark ? AppColors.white : AppColors.textPrimary,
+                              color: isDark ? Colors.white : Colors.black87,
                             ),
                           ),
-                          const SizedBox(height: 2),
+                        ),
+                        // Placeholder for balance or hidden icon to center title
+                        const SizedBox(width: 40),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Step Indicator and Progress
+                Container(
+                  color: isDark ? AppColors.backgroundDark : Colors.white,
+                  padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
                           Text(
-                            'Étape ${_currentStep + 1}/3',
-                            style: TextStyle(
+                            'ÉTAPE ${_currentStep + 1} SUR 3',
+                            style: const TextStyle(
+                              color: AppColors.primaryBlue,
+                              fontWeight: FontWeight.bold,
                               fontSize: 12,
-                              color: isDark ? AppColors.mediumGray : AppColors.textSecondary,
+                              letterSpacing: 1.0,
+                            ),
+                          ),
+                          Text(
+                            _getStepTitle(),
+                            style: TextStyle(
+                              color: isDark
+                                  ? Colors.white54
+                                  : Colors.grey.shade500,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 48), // Pour équilibrer la largeur
-                ],
-              ),
-            ),
-
-            // Barre de progression
-            _buildProgressBar(isDark),
-
-            // Contenu
-            Expanded(
-              child: PageView(
-                controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  PersonalInfoScreen(
-                    onDataChanged: _savePersonalInfo,
-                    initialData: _userData,
-                  ),
-                  CreatePasswordScreen(
-                    onPasswordChanged: _savePassword,
-                    initialPassword: _password,
-                  ),
-                  VPNCertificateScreen(
-                    onCertificateDownloaded: _handleCertificateDownloaded,
-                  ),
-                ],
-              ),
-            ),
-
-            // Boutons de navigation (UNIQUEMENT ICI)
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: isDark ? AppColors.borderDark : AppColors.borderLight,
+                      const SizedBox(height: 12),
+                      // Continuous Progress Bar
+                      Stack(
+                        children: [
+                          Container(
+                            height: 6,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryBlue.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                          ),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            height: 6,
+                            width:
+                                MediaQuery.of(context).size.width *
+                                ((_currentStep + 1) / 3),
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryBlue,
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              child: Row(
-                children: [
-                  if (_currentStep > 0)
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: _previousStep,
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: isDark ? AppColors.white : AppColors.textPrimary,
-                          side: BorderSide(
-                            color: isDark ? AppColors.borderDark : AppColors.borderLight,
-                          ),
-                          minimumSize: const Size(0, 56),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                        child: const Text('Retour'),
+
+                // Contenu
+                Expanded(
+                  child: PageView(
+                    controller: _pageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      PersonalInfoScreen(
+                        onDataChanged: _savePersonalInfo,
+                        initialData: _userData,
                       ),
-                    ),
-                  if (_currentStep > 0) const SizedBox(width: 12),
-                  Expanded(
-                    flex: _currentStep > 0 ? 1 : 2,
-                    child: ElevatedButton(
-                      onPressed: _handleContinue,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _canProceedToNextStep() 
-                            ? AppColors.primaryBlue 
-                            : AppColors.primaryBlue.withOpacity(0.5),
-                        foregroundColor: AppColors.white,
-                        minimumSize: const Size(0, 56),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+                      CreatePasswordScreen(
+                        onPasswordChanged: _handlePasswordChanged,
+                        initialPassword: _password,
                       ),
-                      child: Text(
-                        _getButtonText(),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      VPNCertificateScreen(
+                        onCertificateDownloaded: _handleCertificateDownloaded,
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Boutons de navigation (UNIQUEMENT ICI)
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: isDark
+                            ? AppColors.borderDark
+                            : AppColors.borderLight,
                       ),
                     ),
                   ),
-                ],
-              ),
+                  child: Row(
+                    children: [
+                      if (_currentStep > 0)
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: _previousStep,
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: isDark
+                                  ? AppColors.white
+                                  : AppColors.textPrimary,
+                              side: BorderSide(
+                                color: isDark
+                                    ? AppColors.borderDark
+                                    : AppColors.borderLight,
+                              ),
+                              minimumSize: const Size(0, 56),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            child: const Text('Retour'),
+                          ),
+                        ),
+                      if (_currentStep > 0) const SizedBox(width: 12),
+                      Expanded(
+                        flex: _currentStep > 0 ? 1 : 2,
+                        child: ElevatedButton(
+                          onPressed: _handleContinue,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: _canProceedToNextStep()
+                                ? AppColors.primaryBlue
+                                : AppColors.primaryBlue.withOpacity(0.5),
+                            foregroundColor: AppColors.white,
+                            minimumSize: const Size(0, 56),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                          child: Text(
+                            _getButtonText(),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildProgressBar(bool isDark) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        children: [0, 1, 2].map((index) {
-          final isActive = index <= _currentStep;
-          return Expanded(
-            child: Container(
-              height: 4,
-              margin: EdgeInsets.only(right: index < 2 ? 4 : 0),
-              decoration: BoxDecoration(
-                color: isActive ? 
-                    AppColors.primaryBlue : 
-                    (isDark ? AppColors.mediumGray : AppColors.lightGray),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-          );
-        }).toList(),
       ),
     );
   }

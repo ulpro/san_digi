@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'welcome_screen.dart';
 import 'register_screen.dart';
+import 'login_screen.dart';
 
 /// Écran parent qui gère le flux d'authentification
 /// (Bienvenue -> Inscription -> Connexion)
@@ -22,7 +23,7 @@ class _AuthFlowState extends State<AuthFlow> {
       children: [
         const WelcomeScreen(),
         const RegisterScreen(),
-        // LoginScreen sera ajouté ici
+        const LoginScreen(),
       ],
     );
   }
