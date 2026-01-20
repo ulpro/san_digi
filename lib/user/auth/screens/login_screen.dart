@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import '../../../shared/app_colors.dart';
 import '../../../shared/navigation.dart';
@@ -105,10 +106,27 @@ class _LoginScreenState extends State<LoginScreen> {
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(24.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    // Logo
+                    Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryBlue.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Icon(
+                        Icons.medical_services_outlined,
+                        size: 40,
+                        color: AppColors.primaryBlue,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
                     Text(
                       'Bienvenue',
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headlineSmall
                           ?.copyWith(
                             fontWeight: FontWeight.bold,
@@ -118,13 +136,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 8),
                     Text(
                       'Connectez-vous pour accéder à votre espace santé sécurisé.',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14,
                         color: isDark ? Colors.white60 : Colors.grey.shade600,
                         height: 1.5,
                       ),
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 40),
 
                     // Login Card
                     Container(
@@ -141,14 +160,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? null
                             : [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.02),
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 4),
+                                  color: Colors.black.withOpacity(0.05),
+                                  blurRadius: 15,
+                                  offset: const Offset(0, 5),
                                 ),
                               ],
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           _buildTextField(
                             controller: _emailController,
@@ -274,12 +294,14 @@ class _LoginScreenState extends State<LoginScreen> {
     IconData? prefixIcon,
   }) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 6),
           child: Text(
             label,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14,
               color: isDark ? Colors.white : Colors.black87,
@@ -290,8 +312,12 @@ class _LoginScreenState extends State<LoginScreen> {
         TextField(
           controller: controller,
           keyboardType: keyboardType,
+          textAlign: TextAlign.center,
           decoration: InputDecoration(
             hintText: hint,
+            hintStyle: TextStyle(
+              color: isDark ? Colors.white30 : Colors.grey.shade400,
+            ),
             filled: true,
             fillColor: isDark
                 ? AppColors.backgroundDark
@@ -345,12 +371,14 @@ class _LoginScreenState extends State<LoginScreen> {
     required VoidCallback onToggleVisibility,
   }) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 6),
           child: Text(
             label,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14,
               color: isDark ? Colors.white : Colors.black87,
@@ -361,8 +389,12 @@ class _LoginScreenState extends State<LoginScreen> {
         TextField(
           controller: controller,
           obscureText: !showPassword,
+          textAlign: TextAlign.center,
           decoration: InputDecoration(
             hintText: hint,
+            hintStyle: TextStyle(
+              color: isDark ? Colors.white30 : Colors.grey.shade400,
+            ),
             filled: true,
             fillColor: isDark
                 ? AppColors.backgroundDark
